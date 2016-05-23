@@ -7,9 +7,17 @@ Application.prototype.init = function() {
     new QuestionCard(1)
   ];
 
-  for ( var q in this.questions ) {
-    this.questions[q].init();
+  this.question_height = 0;
+  for ( var i in this.questions ) {
+    var q = this.questions[i];
+    q.init();
+
+    this.question_height = q.getHeight();
+
+    q.hide();
   }
+
+  console.log(this.question_height);
 
   this.current_question_id = 0;
 
@@ -17,12 +25,13 @@ Application.prototype.init = function() {
 
   this.$title = $("#QuestionTitle");
 
-  var self = this;
+  this.onResizeListener();
+  $(window).on("resize", this.onResizeListener);
+};
 
-  $(window).on("resize", function() {
-    var q = self.current_question;
-    q.$(".answer-images").height(q.$(".answer-images img").height());
-  });
+Application.prototype.onResizeListener = function(e) {
+  var q = this.current_question;
+  q.$(".answer-images").height(q.$(".answer-images img").height());
 };
 
 Application.prototype.titleStartClickListener = function (e) {
@@ -30,7 +39,9 @@ Application.prototype.titleStartClickListener = function (e) {
 }
 
 Application.prototype.startButtonListener = function (e) {
-  
+  alert("start");
+  // @TODO: animation of container to fit the question
+    // @TODO: animation of apearing question
 }
 
 Application.prototype.plusClickListener = function (e) {
@@ -88,6 +99,14 @@ QuestionCard.prototype.init = function() {
   this.$( ".minbeds" ).change(function() {
     self.slider.slider( "value", this.selectedIndex + 1 );
   });
+};
+
+QuestionCard.prototype.getHeight = function() {
+  return this.$this.height();
+};
+
+QuestionCard.prototype.hide = function() {
+  this.$this.hide();
 };
 
 QuestionCard.prototype.hideImage = function(image_number, callback) {
