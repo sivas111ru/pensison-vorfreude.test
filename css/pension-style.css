@@ -1,0 +1,68 @@
+.pension-questions {
+    background-color: white;
+    padding: 5% 5% 0 5%;
+}
+
+.pension-controlls {
+    width: 100%;
+}
+
+.side-controll-column {
+    width: 10%;
+    text-align: center;
+}
+
+.slider-controll-column {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.question-button {
+    color: red;
+    font-size: 7em;
+}
+
+.answer-images {
+    position: relative;
+    clear: both;
+    height: 100%;
+}
+
+.answer-images img {
+    width: 100%;
+}
+
+.answer-images img:not(:first-child) {
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+/* SCROLLBAR */
+
+.pension-slider.ui-widget-content {
+    background: white;
+    outline: none;
+    border: none;
+    top: 7px;
+}
+
+.pension-slider .ui-widget-header {
+    background: red;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-radius: 0;
+}
+
+.pension-slider .ui-slider-handle {
+    background: red;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    margin-left: -40px;
+    margin-top: -40px;
+    top: 0;
+    left: 0;
+}

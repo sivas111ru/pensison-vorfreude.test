@@ -1,0 +1,355 @@
+html, body {
+  height: 100%;
+  background-color: #F1F1F1;
+}
+
+.easy-hidden,
+div.easy-hidden {
+  display: none;
+}
+
+.menu {
+	background-color: red;
+}
+
+.login-form {
+	left: 20px;
+}
+
+.btn-login,
+.btn-login:hover,
+.bth-login:link,
+.btn-login:active,
+.btn-login:visited,
+.btn-login:focus,
+.btn-login:target,
+.btn-login:active:hover {
+	color: white;
+	background-color: transparent;
+	border-color: transparent;
+
+}
+
+.btn-search {
+	width: 15em;
+}
+
+.search-field {
+	position: absolute;
+	right: 10px;
+    top: 17px;
+}
+
+.img-logo{
+	width: 100%;
+
+}
+
+.menu-contact {
+	position: absolute;
+	right: 0px;
+	top: 1em;
+}
+.menu-option {
+	position: absolute;
+	left: 0px;
+	top: 1em;
+}
+
+.img-container {
+	position: relative;
+}
+
+.text-logo {
+	position: absolute;;
+	bottom: 2em;
+	font-size: 3em;
+	background-color: red;
+	padding: 20px 5px 20px 5px;
+	color: white;
+	left: 10em;
+
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: red;
+}
+
+
+/* QUESTIONS */
+
+#QuestionNumbers {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#QuestionNumbers span {
+    background-color: gray;
+    border-radius: 50%;
+    color: white;
+    display: block;
+    line-height: 20px;
+	width: 20px;
+	height: 20px;
+    text-align: center;
+    position: relative;
+    margin-right: 10px;
+    padding: auto 0;
+}
+
+#QuestionNumbers span:not(:last-child):after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 3px;
+    background-color: gray;
+    position: absolute;
+    right: -10px;
+    top: 9px;       
+}
+
+#QuestionNumbers .red,
+#QuestionNumbers .red:after {
+    background-color: red !important;
+}
+
+.questions {
+  min-height: 500px;
+  position: relative;
+}
+
+.question-logo {
+  width: 20em;
+}
+
+.question-text {
+  font-size: 30pt;
+}
+
+.question-card {
+  /*padding-top: 20px;*/
+  overflow: auto;
+  width: 100%;
+  position: absolute;
+}
+
+.question-card table {
+  min-height: 10em;
+}
+
+.question-card.intro table {
+  color: black;
+  text-align: left;
+  background-color: white;
+}
+
+.question-card.intro th {
+  text-align: left;
+  padding: 10px 5px 30px 10px;
+}
+
+.btn-start-test {
+  background-color: red;
+  cursor: pointer;
+  color: white;
+  font-size: 2em;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  vertical-align: bottom;
+}
+
+.question-card table {
+  padding: 20px 10px;
+  width: 100%;
+  color: #FF0000;
+  background-color: white;
+}
+
+.question-card th {
+  text-align: center;
+}
+
+.question-card input[type=radio] {
+  display: none;
+}
+
+.question-card input[type=radio]:checked + label {
+  border: 5px solid white;
+}
+
+.question-card label {
+  cursor: pointer;
+}
+
+.question-card label > img {
+  width: 100%;
+}
+
+.question-card label > span {
+  display: block;
+  background-color: #ff0000;
+  color: white;
+  height: 70px;
+  margin-top: 20px;
+  padding: 10px 10px 0 10px;
+}
+
+.question-card.outtro table {
+  color: black;
+  padding: 20px 10px;
+  width: 100%;
+}
+
+.question-card.outtro th,
+.question-card.outtro td {
+  text-align: left;
+  padding: 10px 5px 30px 10px;
+}
+
+
+/* ADMIN */
+
+.field-user-email {
+  padding: 10px;
+  background-color: red;
+  display: block;
+}
+
+/* FOOTER */
+
+.main {
+    position: relative;
+    min-height: 100%;
+    height: auto !important;
+    _height: 100%;
+}
+
+.footer-margin {
+    position: static;
+    width: auto;
+    border: 0px dotted maroon;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    height: 1;
+    font-size: 1px;
+    height: 100px;
+}
+
+.footer {
+    left: 0;
+    bottom: 0;
+    z-index: 6;
+    width: 100%;
+    overflow: hidden;
+    border: 0px dotted green;
+    background: #7D7D7D;
+}
+
+.podvalStyleBig {
+  font-size: 1.2em;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.podvalStyleSmall {
+	display: block;
+}
+
+.podvalStyleSmall,
+.footerContact a {
+  font-size: 1em;
+  color: white;
+}
+
+.footerContact {
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.footerContact a {
+  margin-right: 10px;
+}
+
+
+/* add_question */
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.question-counter {
+  display: block;
+  text-align: center;
+  margin-top: 2em;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/*CSMZeT popup*/
+
+.category-row {
+  margin-bottom: 20px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+}
+
+.category-row > div {
+  padding-left: 20px;
+}
+
+.category-row > div > header {
+  color: red;
+  font-weight: bold;
+}
+
+.category-row > div > span {
+  color: black;
+}
+
+#popup {
+  display: none;
+  background-color: white;
+  position: absolute;
+  z-index: 999;
+  width: 600px;
+  height: 700px;
+  top: 50%;
+  left: 50%;
+  margin-left: -300px;
+  margin-top: -350px;
+}
+
+#hover {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 998;
+}
