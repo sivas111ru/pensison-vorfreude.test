@@ -100,19 +100,25 @@ Application.prototype.nextClickListener = function(e) {
   this.current_question_id++;
   var q2 = this.current_question = this.questions[this.current_question_id];
 
-  this.swapToCards(q1.$this, q2.$this);
+  this.swapTwoCards(q1.$this, q2.$this);
 };
 
-Application.prototype.swapToCards = function(a, b) {
+Application.prototype.swapTwoCards = function(a, b, callback) {
   TweenLite.to(a, 1, {opacity: 0, onComplete: function(){
     a.hide();
     b.show();
-    TweenLite.from(b, 1, {opacity: 0})
+    TweenLite.from(b, 1, {opacity: 0, onComplete: callback})
   }});
 };
 
 Application.prototype.finishTest = function() {
-  
+  var self = this;
+
+  this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
+      $(".final-logo").each(function(i, item){
+        TweenLite.to($("#"+item.id+" > span"), 1, {width: 100 + 200 * i / 5});
+      });
+  });
 };
 
 

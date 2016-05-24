@@ -116,3 +116,13 @@ padding: 2em; */
     margin-top: 1em;
     height: 10%;
 }
+
+
+/* RESULT CARD */
+
+.category-bar {
+    background-color: red;
+    height: 10px;
+    position: absolute;
+    top: 35px;
+}

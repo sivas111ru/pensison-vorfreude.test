@@ -391,9 +391,10 @@ div.easy-hidden {
   border-radius: 40px;
   background-color: red;
   margin-right: 300px;
+  position: relative;
 }
 
-.final-logo:after {
+/* .final-logo:after {
     content: "";
     position: relative;
     top: 35px;
@@ -401,4 +402,4 @@ div.easy-hidden {
     width: 300px;
     background-color: red;
     height: 10px;
-}
+} */
