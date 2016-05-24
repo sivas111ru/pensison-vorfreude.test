@@ -21,6 +21,7 @@ $.fn.toPx = function(settings){
 };
 
 function Application () {
+  this.$app = $("#QuestionForm");
 };
 
 Application.prototype.init = function() {
@@ -34,8 +35,6 @@ Application.prototype.init = function() {
     q.init();
 
     this.question_height = q.getHeight();
-
-    //q.hide();
   }
 
   this.current_question_id = 0;
@@ -47,44 +46,36 @@ Application.prototype.init = function() {
   this.onResizeListener();
   $(window).on("resize", this.onResizeListener);
 
-  //$("#QuestionNumbers").hide();
+  $(".pension-questions").hide();
+
+  this.$app.height($("#QuestionIntro").outerHeight(true));
 };
 
 Application.prototype.onResizeListener = function(e) {
-  var q = this.current_question;
-  q.$this.height(window.outerHeight - this.TOTAL_BUTTONS_HEIGHT);
+  this.current_question.resizeImage();
 };
 
 Application.prototype.titleStartClickListener = function (e) {
   var self = this;
 
   self.startTest();
+}
 
-  $("#TitleStartButton").css("position", "absolute");
-
-  $("#TitleStartButton").animate({height: 0, opacity: 0}, 1000);
+Application.prototype.startButtonListener = function (e) {
+  this.startTest();
 }
 
 Application.prototype.startTest = function() {
   var self = this;
 
-  $("#QuestionIntro").fadeOut();
+  TweenLite.to("#TitleStartButton", 1, {opacity: 0});
 
-  this.current_question.$this
-    .css("display", "block")
-    .css("opacity", 0)
-    .animate({height: this.question_height}, 1000, function() {
-      $("#QuestionNumbers").fadeIn();
-      self.current_question.show();
-      $("html, body").animate({ scrollTop: $('#QuestionTitle').offset().top }, 1000);
-    });
+  TweenLite.to("#QuestionIntro", 1, {opacity: 0});
+
+  TweenLite.to(this.$app, 1, {height: $(".pension-questions").outerHeight(true)});
+  TweenLite.set(".pension-questions", {display: "block"});
+  TweenLite.from(".pension-questions", 1, {height: 0});
 };
-
-Application.prototype.startButtonListener = function (e) {
-  alert("start");
-  // @TODO: animation of container to fit the question
-    // @TODO: animation of apearing question
-}
 
 Application.prototype.plusClickListener = function (e) {
   this.current_question.plusClickListener();
@@ -122,7 +113,7 @@ QuestionCard.prototype.init = function() {
     + $(".pagination-centered").outerHeight(true)
     + $("#QuestionTitle").outerHeight(true)
     + $(".weiter-block").outerHeight(true)
-    + $(2*2 + 1).toPx();
+    + $(2*2 + 2).toPx();
 
   this.$(".answer-images .pension-image").each(function(index, item){
     var $item = $(item);
@@ -163,7 +154,7 @@ QuestionCard.prototype.getHeight = function() {
 
 QuestionCard.prototype.show = function() {
   this.$this.animate({opacity: 1});
-  this.resizeImageContainer();
+  // this.resizeImageContainer();
 };
 
 QuestionCard.prototype.hide = function() {

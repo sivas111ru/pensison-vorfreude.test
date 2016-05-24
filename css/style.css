@@ -8,6 +8,17 @@ html, body {
   padding: 2em;
 }
 
+.pension-questions {
+  overflow: hidden;
+}
+
+.weiter-btn {
+  background-color: red;
+  color: white;
+  padding: 1em;
+  cursor: pointer;
+}
+
 .easy-hidden,
 div.easy-hidden {
   display: none;

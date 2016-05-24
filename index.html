@@ -11,6 +11,9 @@
   <script src="js/jquery.easing.1.3.js"></script>
   <script src="js/jquery.autocomplete.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenLite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/plugins/CSSPlugin.min.js"></script>
+
   <link rel="stylesheet" href="css/pension-style.css">
 
   <title>Pension Vorfeude</title>
@@ -72,12 +75,18 @@
     <div class="container">
       <h1 id="QuestionTitle">Aus Vorsorge wird Vorfreude</h1>
 
-      <form id="QuestionForm" class="pension-questions" action="app/evaluate_test.php" method="POST">
+      <form id="QuestionForm" action="app/evaluate_test.php" method="POST">
 
-        <div id="QuestionIntro" class="cbox">
-          <p>Wieso eigentlich AltersvorSORGE? Anstatt sich Sorgen um die Zukunft zu machen, sollten Sie sich auf sie freuen. je eher, desto besser! Mit uns machen Sie aus Vorsorge Vorfreude – das ganze Leben lang.</p>
-        
-          <p>Finden Sie jetzt heraus, wie viel Vorfreude aufs Alter Sie sich heute leisten wollen!</p>
+        <div id="QuestionIntro" class="clearfix">
+          <div class="cbox">
+            <p>Wieso eigentlich AltersvorSORGE? Anstatt sich Sorgen um die Zukunft zu machen, sollten Sie sich auf sie freuen. je eher, desto besser! Mit uns machen Sie aus Vorsorge Vorfreude – das ganze Leben lang.</p>
+          
+            <p>Finden Sie jetzt heraus, wie viel Vorfreude aufs Alter Sie sich heute leisten wollen!</p>
+          </div>
+
+          <div style="margin-top: 1em;">
+            <span class="pull-right weiter-btn" onclick="(app.startButtonListener.bind(app))()">Vorfreude starten!</span>
+          </div>
         </div>
 
         <div class="pension-questions">

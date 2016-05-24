@@ -1,3 +1,26 @@
+.clearfix {
+    zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+
+
+#QuestionForm {
+  position: relative;
+}
+
+#QuestionIntro,
+.pension-questions {
+  position: absolute;
+  top: 0;
+}
+
 .pagination-centered {
     padding-bottom: 0;
 }
