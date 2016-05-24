@@ -1,5 +1,6 @@
 function Application () {
-
+  this.TOTAL_BUTTONS_HEIGHT = $("#QuestionTitle").outerHeight() * 2;
+  console.log();
 };
 
 Application.prototype.init = function() {
@@ -14,7 +15,7 @@ Application.prototype.init = function() {
 
     this.question_height = q.getHeight();
 
-    q.hide();
+    //q.hide();
   }
 
   this.current_question_id = 0;
@@ -31,7 +32,7 @@ Application.prototype.init = function() {
 
 Application.prototype.onResizeListener = function(e) {
   var q = this.current_question;
-  q.resizeImageContainer();
+  q.$this.height(window.outerHeight - this.TOTAL_BUTTONS_HEIGHT);
 };
 
 Application.prototype.titleStartClickListener = function (e) {
@@ -122,10 +123,6 @@ QuestionCard.prototype.init = function() {
   this.$( ".minbeds" ).change(function() {
     self.slider.slider( "value", this.selectedIndex + 1 );
   });
-};
-
-QuestionCard.prototype.resizeImageContainer = function() {
-  this.$(".answer-images").height(this.$(".answer-images img").height());
 };
 
 QuestionCard.prototype.getHeight = function() {

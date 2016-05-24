@@ -7,6 +7,10 @@
 padding: 2em; */
 }
 
+.question-table {
+    height: 80%;
+}
+
 .pension-controlls {
     width: 100%;
 }
@@ -72,5 +76,6 @@ padding: 2em; */
 }
 
 .question-description {
-    margin-top: 2em;
+    margin-top: 5%;
+    height: 10%;
 }
