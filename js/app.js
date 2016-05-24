@@ -26,7 +26,8 @@ function Application () {
 
 Application.prototype.init = function() {
   this.questions = [
-    new QuestionCard(1)
+    new QuestionCard(1),
+    new QuestionCard(2)
   ];
 
   this.question_height = 0;
@@ -34,12 +35,15 @@ Application.prototype.init = function() {
     var q = this.questions[i];
     q.init();
 
+    q.hide();
+
     this.question_height = q.getHeight();
   }
 
   this.current_question_id = 0;
 
   this.current_question = this.questions[0];
+  this.current_question.show();
 
   this.$title = $("#QuestionTitle");
 
@@ -86,7 +90,29 @@ Application.prototype.minusClickListener = function (e) {
 }
 
 Application.prototype.nextClickListener = function(e) {
-  console.log("next!");
+  if ( this.current_question_id >= this.questions.length - 1  ) {
+    this.finishTest();
+    return;
+  }
+
+  var q1 = this.current_question;
+
+  this.current_question_id++;
+  var q2 = this.current_question = this.questions[this.current_question_id];
+
+  this.swapToCards(q1.$this, q2.$this);
+};
+
+Application.prototype.swapToCards = function(a, b) {
+  TweenLite.to(a, 1, {opacity: 0, onComplete: function(){
+    a.hide();
+    b.show();
+    TweenLite.from(b, 1, {opacity: 0})
+  }});
+};
+
+Application.prototype.finishTest = function() {
+  
 };
 
 
@@ -153,12 +179,20 @@ QuestionCard.prototype.getHeight = function() {
 };
 
 QuestionCard.prototype.show = function() {
-  this.$this.animate({opacity: 1});
-  // this.resizeImageContainer();
+  this.$this.show();
 };
 
 QuestionCard.prototype.hide = function() {
   this.$this.hide();
+};
+
+QuestionCard.prototype.enter = function() {
+  this.show();
+  TweenLite.from(this.$this, 1, {opacity: 0});
+};
+
+QuestionCard.prototype.leave = function() {
+  TweenLite.to(this.$this, 1, {opacity: 0, x: "-100%", onComplete: this.hide.bind(this)});
 };
 
 QuestionCard.prototype.hideImage = function(image_number, callback) {
