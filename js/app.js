@@ -1,6 +1,26 @@
+$.fn.toEm = function(settings){
+    settings = jQuery.extend({
+        scope: 'body'
+    }, settings);
+    var that = parseInt(this[0],10),
+        scopeTest = jQuery('<div style="display: none; font-size: 1em; margin: 0; padding:0; height: auto; line-height: 1; border:0;">&nbsp;</div>').appendTo(settings.scope),
+        scopeVal = scopeTest.height();
+    scopeTest.remove();
+    return (that / scopeVal).toFixed(8);
+};
+
+$.fn.toPx = function(settings){
+    settings = jQuery.extend({
+        scope: 'body'
+    }, settings);
+    var that = parseFloat(this[0]),
+        scopeTest = jQuery('<div style="display: none; font-size: 1em; margin: 0; padding:0; height: auto; line-height: 1; border:0;">&nbsp;</div>').appendTo(settings.scope),
+        scopeVal = scopeTest.height();
+    scopeTest.remove();
+    return Math.round(that * scopeVal);
+};
+
 function Application () {
-  this.TOTAL_BUTTONS_HEIGHT = $("#QuestionTitle").outerHeight() * 2;
-  console.log();
 };
 
 Application.prototype.init = function() {
@@ -27,7 +47,7 @@ Application.prototype.init = function() {
   this.onResizeListener();
   $(window).on("resize", this.onResizeListener);
 
-  $("#QuestionNumbers").hide();
+  //$("#QuestionNumbers").hide();
 };
 
 Application.prototype.onResizeListener = function(e) {
@@ -85,6 +105,8 @@ function QuestionCard ( question_number ) {
 
   this.is_transition = false;
 
+  this.$this = $("#Question_" + this.num);
+
   this.$ = function(query) {
     return this.$this.find(query);
   }
@@ -93,9 +115,16 @@ function QuestionCard ( question_number ) {
 QuestionCard.prototype.init = function() {
   var self = this;
 
-  this.$this = $("#Question_" + this.num);
+  this.question_height_minus_image_height =
+    this.$(".question-description").outerHeight(true)
+    + this.$(".pension-controlls").outerHeight(true)
+    + this.$("h2").outerHeight(true)
+    + $(".pagination-centered").outerHeight(true)
+    + $("#QuestionTitle").outerHeight(true)
+    + $(".weiter-block").outerHeight(true)
+    + $(2*2 + 1).toPx();
 
-  this.$(".answer-images img").each(function(index, item){
+  this.$(".answer-images .pension-image").each(function(index, item){
     var $item = $(item);
     $item.css("z-index", index);
     if ( index > 0 ) {
@@ -107,6 +136,7 @@ QuestionCard.prototype.init = function() {
   this.slider = this.$( ".pension-controlls .pension-slider" ).slider({
     min: 1,
     max: 5,
+    animate: true,
     range: "min",
     value: this.select[ 0 ].selectedIndex + 1,
     start: function( event, ui ) {
@@ -123,6 +153,8 @@ QuestionCard.prototype.init = function() {
   this.$( ".minbeds" ).change(function() {
     self.slider.slider( "value", this.selectedIndex + 1 );
   });
+
+  this.resizeImage();
 };
 
 QuestionCard.prototype.getHeight = function() {
@@ -156,6 +188,10 @@ QuestionCard.prototype.showImage = function(image_number, callback) {
       callback();
     }
   });
+};
+
+QuestionCard.prototype.resizeImage = function() {
+  this.$(".answer-images").height(window.innerHeight - this.question_height_minus_image_height);
 };
 
 QuestionCard.prototype.plusClickListener = function() {
