@@ -17,8 +17,6 @@ Application.prototype.init = function() {
     q.hide();
   }
 
-  console.log(this.question_height);
-
   this.current_question_id = 0;
 
   this.current_question = this.questions[0];
@@ -27,16 +25,39 @@ Application.prototype.init = function() {
 
   this.onResizeListener();
   $(window).on("resize", this.onResizeListener);
+
+  $("#QuestionNumbers").hide();
 };
 
 Application.prototype.onResizeListener = function(e) {
   var q = this.current_question;
-  q.$(".answer-images").height(q.$(".answer-images img").height());
+  q.resizeImageContainer();
 };
 
 Application.prototype.titleStartClickListener = function (e) {
-  $("html, body").animate({ scrollTop: $('#QuestionTitle').offset().top }, 1000);
+  var self = this;
+
+  self.startTest();
+
+  $("#TitleStartButton").css("position", "absolute");
+
+  $("#TitleStartButton").animate({height: 0, opacity: 0}, 1000);
 }
+
+Application.prototype.startTest = function() {
+  var self = this;
+
+  $("#QuestionIntro").fadeOut();
+
+  this.current_question.$this
+    .css("display", "block")
+    .css("opacity", 0)
+    .animate({height: this.question_height}, 1000, function() {
+      $("#QuestionNumbers").fadeIn();
+      self.current_question.show();
+      $("html, body").animate({ scrollTop: $('#QuestionTitle').offset().top }, 1000);
+    });
+};
 
 Application.prototype.startButtonListener = function (e) {
   alert("start");
@@ -55,6 +76,8 @@ Application.prototype.minusClickListener = function (e) {
 Application.prototype.nextClickListener = function(e) {
   console.log("next!");
 };
+
+
 
 function QuestionCard ( question_number ) {
   this.num = question_number;
@@ -101,8 +124,17 @@ QuestionCard.prototype.init = function() {
   });
 };
 
+QuestionCard.prototype.resizeImageContainer = function() {
+  this.$(".answer-images").height(this.$(".answer-images img").height());
+};
+
 QuestionCard.prototype.getHeight = function() {
   return this.$this.height();
+};
+
+QuestionCard.prototype.show = function() {
+  this.$this.animate({opacity: 1});
+  this.resizeImageContainer();
 };
 
 QuestionCard.prototype.hide = function() {
