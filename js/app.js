@@ -195,6 +195,18 @@ function QuestionCard ( question_number ) {
 QuestionCard.prototype.init = function() {
   var self = this;
 
+  /*self.images = new Array();
+
+  for (var i = 1; i < 6; i++) {
+    var img = new Image();
+    img.src = "img/q/img-" + this.num + "-" + i + ".png";
+
+    this.images.push(img);
+  }
+
+  this.$this.append("<div id='HiddenImages' style='display: none'></div>");
+  this.$("#HiddenImages").append(this.images);*/
+
   this.question_height_minus_image_height =
     this.$(".question-description").outerHeight(true)
     + this.$(".pension-controlls").outerHeight(true)
