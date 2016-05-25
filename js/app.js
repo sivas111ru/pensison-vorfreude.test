@@ -26,8 +26,8 @@ function Application () {
 
 Application.prototype.init = function() {
   this.questions = [
-    new QuestionCard(1),
-    new QuestionCard(2)
+    new QuestionCard(1, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?"),
+    new QuestionCard(2, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?")
   ];
 
   this.question_height = 0;
@@ -75,7 +75,8 @@ Application.prototype.startTest = function() {
   TweenLite.to("#TitleStartButton", 1, {opacity: 0});
 
   this.swapTwoCards($("#QuestionIntro"), $(".pension-questions"));
-  // TweenLite.from(".pension-questions", 1, {height: 0});
+
+  this.changeTitle(this.current_question.title);
 };
 
 Application.prototype.plusClickListener = function (e) {
@@ -106,6 +107,16 @@ Application.prototype.nextQuestion = function(e) {
   });
 
   this.swapTwoQuestionCards(q1.$this, q2.$this);
+
+  this.changeTitle(q2.title);
+};
+
+Application.prototype.changeTitle = function(title) {
+  var $qt = $("#QuestionTitle");
+  TweenLite.to($qt, 1, {opacity: 0, onComplete: function() {
+    $qt.html(title);
+    TweenLite.to($qt, 1, {opacity: 1});
+  }});
 };
 
 Application.prototype.swapTwoCards = function(a, b, callback) {
@@ -133,6 +144,8 @@ Application.prototype.finishTest = function() {
   var self = this;
 
   this.initCalulator();
+
+  this.changeTitle("So viel Vorfreude kann so wenig kosten!");
 
   this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
       var i1 = 20 + 20 * $("#QuestionImages_1")[0].selectedIndex;
@@ -197,8 +210,9 @@ Application.prototype.updateCalculatorResutl = function() {
 
 
 
-function QuestionCard ( question_number ) {
+function QuestionCard ( question_number, question_title ) {
   this.num = question_number;
+  this.title = question_title;
 
   this.is_transition = false;
 
