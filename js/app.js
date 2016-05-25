@@ -250,7 +250,7 @@ QuestionCard.prototype.init = function() {
     stop: function( event, ui ) {
       self.showImage(ui.value);
     },
-    slide: function( event, ui ) {
+    change: function( event, ui ) {
       self.select[ 0 ].selectedIndex = ui.value - 1;
     }
   });
