@@ -246,7 +246,7 @@
             </tr>
           </table>
 
-          <div class="cbox row">
+          <div class="clearfix cbox">
             <div class="col-md-6">
               Fьr so viel Vorfreude brauchen Sie <br/>
               eine monatliche Rente von: 
@@ -256,35 +256,48 @@
             </div>
           </div>
 
-          <div class="row" style="margin-top: 1em">
-            <span class="pull-right weiter-btn">
+          <div class="clearfix" style="margin-top: 1em">
+            <span class="pull-right weiter-btn" onclick="(app.displayPensionCalculator.bind(app))()">
               Wie wenig kostet meine Vorfreude?
             </span>
           </div>
 
-          <div class="cbox row" style="margin-top: 1em">
-            <div class="col-md-6">
-              <input type="text" value="1.500 Euro" />
+          <div class="pension-calculator">
+
+            <div class="clearfix cbox" style="margin-top: 1em">
+              <div class="col-md-6">
+                <label for="ResultPension">Lebenslange Rente</label>
+                <input id="ResultPension" type="text" value="1.500 Euro" />
+              </div>
+
+              <div class="col-md-6">
+                <div>
+                  <label for="">So viel kann ich monatlich einzahlen:</label>
+                  <div id="ResultPayment" class="pension-result-slider"></div>
+                </div>
+
+                <div>
+                  <label for="">In dem Alter fange ich an:</label>
+                  <div id="ResultWorkYears" class="pension-result-slider"></div>
+                </div>
+              </div>
             </div>
 
-            <div class="col-md-6">
-              Comming Later
+            <div class="cbox" style="margin-top: 1em">
+              Wer will schon auf etwas verzichten? Heute nicht und spдter erst recht nicht! Sorgen Sie dafьr, dass Sie ein Leben lang Ihre Wьnsche und Ziele ausleben kцnnen – Ihr Sparkassen-Berater hilft dabei! 
             </div>
-          </div>
 
-          <div class="cbox row" style="margin-top: 1em">
-            Wer will schon auf etwas verzichten? Heute nicht und spдter erst recht nicht! Sorgen Sie dafьr, dass Sie ein Leben lang Ihre Wьnsche und Ziele ausleben kцnnen – Ihr Sparkassen-Berater hilft dabei! 
-          </div>
+            <div class="clearfix" style="margin-top: 1em">
 
-          <div class="row" style="margin-top: 1em">
+              <span class="pull-right weiter-btn">
+                Termin vereinbaren
+              </span>
 
-            <span class="pull-right weiter-btn">
-              Termin vereinbaren
-            </span>
+              <span class="pull-right weiter-btn" style="background-color: gray; margin-right: 1em;">
+                Angebot berechen
+              </span>
+            </div>
 
-            <span class="pull-right weiter-btn" style="background-color: gray; margin-right: 1em;">
-              Angebot berechen
-            </span>
           </div>
 
         </div>

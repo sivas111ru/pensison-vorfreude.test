@@ -17,7 +17,7 @@
 
 #QuestionIntro,
 .pension-questions {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
 }
 
@@ -125,4 +125,35 @@ padding: 2em; */
     height: 10px;
     position: absolute;
     top: 35px;
+}
+
+.pension-calculator {
+    height: 0;
+    overflow: hidden;
+}
+
+
+.pension-result-slider {
+    margin: 2em 0;
+}
+
+.pension-result-slider .ui-slider-handle {
+    width: 30px;
+    height: 30px;
+    top: -11px;
+    border-radius: 15px;
+    background: white;
+}
+
+.pension-result-slider.ui-widget-content {
+    border: none;
+    background: #F0F0F0;
+}
+
+.pension-result-slider.ui-slider-horizontal {
+    height: 0.6em;
+}
+
+.pension-result-slider .ui-slider-range-min {
+    background: red;
 }

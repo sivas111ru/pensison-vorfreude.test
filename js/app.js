@@ -74,11 +74,14 @@ Application.prototype.startTest = function() {
 
   TweenLite.to("#TitleStartButton", 1, {opacity: 0});
 
-  TweenLite.to("#QuestionIntro", 1, {opacity: 0});
+  // this.current_question.init();
 
-  TweenLite.to(this.$app, 1, {height: $(".pension-questions").outerHeight(true)});
-  TweenLite.set(".pension-questions", {display: "block"});
-  TweenLite.from(".pension-questions", 1, {height: 0});
+  // TweenLite.to("#QuestionIntro", 1, {opacity: 0});
+
+  // TweenLite.to(this.$app, 1, {height: $(".pension-questions").outerHeight(true)});
+
+  this.swapTwoCards($("#QuestionIntro"), $(".pension-questions"));
+  // TweenLite.from(".pension-questions", 1, {height: 0});
 };
 
 Application.prototype.plusClickListener = function (e) {
@@ -108,10 +111,22 @@ Application.prototype.nextQuestion = function(e) {
     }
   });
 
-  this.swapTwoCards(q1.$this, q2.$this);
+  this.swapTwoQuestionCards(q1.$this, q2.$this);
 };
 
 Application.prototype.swapTwoCards = function(a, b, callback) {
+  TweenLite.to( this.$app, 1, {height: b.outerHeight(true)} );
+
+  TweenLite.to(a, 1, {opacity: 0, onComplete: function(){
+    a.hide();
+    b.show();
+    TweenLite.from(b, 1, {opacity: 0, onComplete: callback})
+  }});
+};
+
+Application.prototype.swapTwoQuestionCards = function(a, b, callback) {
+  // TweenLite.to( this.$app, 1, {height: b.outerHeight(true)} );
+
   TweenLite.to(a, 1, {opacity: 0, onComplete: function(){
     a.hide();
     b.show();
@@ -122,10 +137,44 @@ Application.prototype.swapTwoCards = function(a, b, callback) {
 Application.prototype.finishTest = function() {
   var self = this;
 
+  this.initCalulator();
+
   this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
       $(".final-logo").each(function(i, item){
         TweenLite.to($("#"+item.id+" > span"), 1, {width: 100 + 200 * i / 5});
       });
+  });
+};
+
+Application.prototype.displayPensionCalculator = function() {
+  var $calc = $(".pension-calculator");
+
+  var height = 0;
+  $calc.children().each(function(i, item) {
+      height += $(item).outerHeight(true);
+  });
+
+  TweenLite.to(this.$app, 1, {height: "+=" + height, onComplete: function() {
+    TweenLite.set($calc, {height: height});
+    TweenLite.from($calc, 1, {opacity: 0});
+  }});
+};
+
+Application.prototype.initCalulator = function() {
+  this.payment_slider = $("#ResultPayment").slider({
+    min: 20,
+    max: 500,
+    animate: true,
+    range: "min",
+    value: 25
+  });
+
+  this.payment_slider = $("#ResultWorkYears").slider({
+    min: 18,
+    max: 65,
+    animate: true,
+    range: "min",
+    value: 25
   });
 };
 
@@ -154,6 +203,14 @@ QuestionCard.prototype.init = function() {
     + $("#QuestionTitle").outerHeight(true)
     + $(".weiter-block").outerHeight(true)
     + $(2*2 + 4).toPx();
+
+    console.log(this.$(".question-description").outerHeight(true)
+    , this.$(".pension-controlls").outerHeight(true)
+    , this.$("h2").outerHeight(true)
+    , $(".pagination-centered").outerHeight(true)
+    , $("#QuestionTitle").outerHeight(true)
+    , $(".weiter-block").outerHeight(true)
+    , $(2*2 + 4).toPx());
 
   this.$(".answer-images .pension-image").each(function(index, item){
     var $item = $(item);
