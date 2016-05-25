@@ -89,7 +89,7 @@ Application.prototype.minusClickListener = function (e) {
   this.current_question.minusClickListener();
 }
 
-Application.prototype.nextClickListener = function(e) {
+Application.prototype.nextQuestion = function(e) {
   if ( this.current_question_id >= this.questions.length - 1  ) {
     this.finishTest();
     return;
@@ -99,6 +99,14 @@ Application.prototype.nextClickListener = function(e) {
 
   this.current_question_id++;
   var q2 = this.current_question = this.questions[this.current_question_id];
+
+  var question_id = this.current_question_id;
+
+  $("#QuestionNumbers span").each(function(i, item) {
+    if ( i == question_id ) {
+      $(item).addClass("red");
+    }
+  });
 
   this.swapTwoCards(q1.$this, q2.$this);
 };
