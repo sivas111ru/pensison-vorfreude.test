@@ -74,12 +74,6 @@ Application.prototype.startTest = function() {
 
   TweenLite.to("#TitleStartButton", 1, {opacity: 0});
 
-  // this.current_question.init();
-
-  // TweenLite.to("#QuestionIntro", 1, {opacity: 0});
-
-  // TweenLite.to(this.$app, 1, {height: $(".pension-questions").outerHeight(true)});
-
   this.swapTwoCards($("#QuestionIntro"), $(".pension-questions"));
   // TweenLite.from(".pension-questions", 1, {height: 0});
 };
@@ -117,6 +111,8 @@ Application.prototype.nextQuestion = function(e) {
 Application.prototype.swapTwoCards = function(a, b, callback) {
   TweenLite.to( this.$app, 1, {height: b.outerHeight(true)} );
 
+  $("html, body").animate({ scrollTop: $('#QuestionTitle').offset().top }, 1000);
+
   TweenLite.to(a, 1, {opacity: 0, onComplete: function(){
     a.hide();
     b.show();
@@ -125,7 +121,6 @@ Application.prototype.swapTwoCards = function(a, b, callback) {
 };
 
 Application.prototype.swapTwoQuestionCards = function(a, b, callback) {
-  // TweenLite.to( this.$app, 1, {height: b.outerHeight(true)} );
 
   TweenLite.to(a, 1, {opacity: 0, onComplete: function(){
     a.hide();
@@ -140,8 +135,19 @@ Application.prototype.finishTest = function() {
   this.initCalulator();
 
   this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
+      var i1 = 20 + 20 * $("#QuestionImages_1")[0].selectedIndex;
+      var i2 = 20 + 20 * $("#QuestionImages_2")[0].selectedIndex;
+
       $(".final-logo").each(function(i, item){
-        TweenLite.to($("#"+item.id+" > span"), 1, {width: 100 + 200 * i / 5});
+        var w = 100 + 200 * i / 5;
+        if ( i == 0 ) {
+          w = i1 * 300 / 100;
+        }
+        else if ( i == 1 ) {
+          w = i2 * 300 / 100;
+        }
+
+        TweenLite.to($("#"+item.id+" > span"), 1, {width: w});
       });
   });
 };
@@ -166,16 +172,27 @@ Application.prototype.initCalulator = function() {
     max: 500,
     animate: true,
     range: "min",
-    value: 25
+    value: 25,
+    slide: this.updateCalculatorResutl.bind(this)
   });
 
-  this.payment_slider = $("#ResultWorkYears").slider({
+  this.year_slider = $("#ResultWorkYears").slider({
     min: 18,
     max: 65,
     animate: true,
     range: "min",
-    value: 25
+    value: 25,
+    slide: this.updateCalculatorResutl.bind(this)
   });
+};
+
+Application.prototype.updateCalculatorResutl = function() {
+  var payment = this.payment_slider.slider("value");
+  var year = this.year_slider.slider("value");
+  var result = payment * year;
+
+  // <input id="ResultPension" type="text" value="1.500 Euro" />
+  $("#ResultPension").val( result + " Euro");
 };
 
 
@@ -194,18 +211,6 @@ function QuestionCard ( question_number ) {
 
 QuestionCard.prototype.init = function() {
   var self = this;
-
-  /*self.images = new Array();
-
-  for (var i = 1; i < 6; i++) {
-    var img = new Image();
-    img.src = "img/q/img-" + this.num + "-" + i + ".png";
-
-    this.images.push(img);
-  }
-
-  this.$this.append("<div id='HiddenImages' style='display: none'></div>");
-  this.$("#HiddenImages").append(this.images);*/
 
   this.question_height_minus_image_height =
     this.$(".question-description").outerHeight(true)
