@@ -153,7 +153,7 @@ QuestionCard.prototype.init = function() {
     + $(".pagination-centered").outerHeight(true)
     + $("#QuestionTitle").outerHeight(true)
     + $(".weiter-block").outerHeight(true)
-    + $(2*2 + 2).toPx();
+    + $(2*2 + 4).toPx();
 
   this.$(".answer-images .pension-image").each(function(index, item){
     var $item = $(item);
