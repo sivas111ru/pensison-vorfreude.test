@@ -66,6 +66,7 @@ padding: 2em; */
 .question-button {
     color: red;
     font-size: 7em;
+    cursor: pointer;
 }
 
 .answer-images {
@@ -107,6 +108,7 @@ padding: 2em; */
     width: 80px;
     height: 80px;
     border-radius: 40px;
+    border: none;
     margin-left: -40px;
     margin-top: -40px;
     top: 0;

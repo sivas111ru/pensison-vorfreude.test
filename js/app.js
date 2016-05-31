@@ -257,7 +257,7 @@ QuestionCard.prototype.init = function() {
   this.slider = this.$( ".pension-controlls .pension-slider" ).slider({
     min: 1,
     max: 5,
-    animate: true,
+    animate: false,
     range: "min",
     value: this.select[ 0 ].selectedIndex + 1,
     start: function( event, ui ) {
