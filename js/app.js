@@ -150,16 +150,15 @@ Application.prototype.finishTest = function() {
   this.changeTitle("So viel Vorfreude kann so wenig kosten!");
 
   this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
-      //var i1 = 20 + 20 * $("#QuestionImages_1")[0].selectedIndex;
-      //var i2 = 20 + 20 * $("#QuestionImages_2")[0].selectedIndex;
-
       $(".final-logo").each(function(i, item){
-        if ( i > 0 && i < 5) {
-          var w = ( 2 + $("#QuestionImages_" + i)[0].selectedIndex ) * 60;
+        if ( i >= 0 && i < 4) {
+          var w = ( $("#QuestionImages_" + (i+1) )[0].selectedIndex + 1 ) * 60;
         }
         else {
           var w = 300 / 100;
         }
+
+        console.log(w);
 
         TweenLite.to($("#"+item.id+" > span"), 1, {width: w});
       });
