@@ -91,6 +91,7 @@ padding: 2em; */
     outline: none;
     border: none;
     top: 7px;
+    background-color: red;
 }
 
 .pension-slider .ui-widget-header {
@@ -110,6 +111,17 @@ padding: 2em; */
     margin-top: -40px;
     top: 0;
     left: 0;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+.pension-slider .ui-slider-handle:focus {
+    outline: none;
+    cursor: default;
 }
 
 .question-description {
