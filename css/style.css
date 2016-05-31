@@ -342,6 +342,38 @@ div.easy-hidden {
   color: black;
 }
 
+#PensionSlider1 .ui-slider-handle,
+#Category1 {
+    background: #E10F21 url("../img/icons/icon-leben.png");
+}
+
+#PensionSlider2 .ui-slider-handle,
+#Category2 {
+    background: #E10F21 url("../img/icons/icon-reisen.png");
+}
+
+#PensionSlider3 .ui-slider-handle,
+#Category3 {
+    background: #E10F21 url("../img/icons/icon-wohnen.png");
+}
+
+#PensionSlider4 .ui-slider-handle,
+#Category4 {
+    background: #E10F21 url("../img/icons/icon-herzen.png");
+}
+
+#PensionSlider1 .ui-slider-handle,
+#PensionSlider2 .ui-slider-handle,
+#PensionSlider3 .ui-slider-handle,
+#PensionSlider4 .ui-slider-handle,
+#Category1,
+#Category2,
+#Category3,
+#Category4 {
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
 #popup {
   display: none;
   background-color: white;
