@@ -231,13 +231,13 @@ function QuestionAgeCard( app ) {
     max: 67,
     animate: true,
     range: "min",
-    value: this.user_age,
+    value: app.user_age,
     slide: function(event, ui) {
       app.user_age = ui.value;
       $("#UserAge .ui-handle-text").text(ui.value + " Jahre");
     }
   });
-  $("#UserAge .ui-slider-handle").append("<span class='ui-handle-text'>" + this.user_age + " Jahre</span>");
+  $("#UserAge .ui-slider-handle").append("<span class='ui-handle-text'>" + app.user_age + " Jahre</span>");
 
   this.$this = $("#QuestionAge");
   this.$this.hide();
@@ -453,6 +453,8 @@ ResultCard.prototype.initSliders = function() {
 };
 
 ResultCard.prototype.initCalulator = function() {
+  var self = this;
+
   var p = this.app.imaginary_pension;
   var savings = this.app.calculateSavings();
 
@@ -460,7 +462,7 @@ ResultCard.prototype.initCalulator = function() {
 
   this.payment_slider = $("#ResultPayment").slider({
     min: 20,
-    max: 1000,
+    max: 500,
     animate: true,
     range: "min",
     value: savings,
@@ -499,11 +501,14 @@ ResultCard.prototype.displayPensionCalculator = function() {
 };
 
 ResultCard.prototype.updateCalculatorResult = function() {
-  var PENSIONS = [200, 400, 600, 800, 1000]
+  var PENSIONS = [200, 400, 600, 800, 1000];
   var payment = this.payment_slider.slider("value");
   var year = this.year_slider.slider("value");
 
   var pens_array = Application.PENSION_DATA_ARRAY[year];
+
+  this.payment_slider.slider("option", "min", pens_array[0]);
+  this.payment_slider.slider("option", "max", pens_array[4]);
 
   for ( var i=0; i < pens_array.length; i++ ) {
     if ( payment < pens_array[i] ) {
@@ -511,12 +516,13 @@ ResultCard.prototype.updateCalculatorResult = function() {
     }
   }
 
-  if ( i >= pens_array.length ) {
-    i--;
+  if ( i == 0 || i >= pens_array.length  ) {
+    console.log("ERROR!");
+    return;
   }
 
-  var norm = (PENSIONS[i] - (i == 0 ? 0 :PENSIONS[i-1])) / (pens_array[i] - (i == 0 ? 0 : pens_array[i-1]));
-  var result = PENSIONS[i] + Math.abs(pens_array[i] - payment) * norm;
+  var norm = (PENSIONS[i] - PENSIONS[i-1]) / (pens_array[i] - pens_array[i-1]);
+  var result = PENSIONS[i] - (pens_array[i] - payment) * norm;
 
   console.log(i, payment, year, result, norm, (pens_array[i] - payment) * norm);
 
