@@ -227,6 +227,9 @@ td.final-slider {
     overflow: hidden;
 }
 
+.pension-calculator label {
+    color: #666666;
+}
 
 .pension-result-slider {
     margin: 2em 0;
