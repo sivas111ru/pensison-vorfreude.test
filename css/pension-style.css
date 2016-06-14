@@ -10,6 +10,10 @@
     clear: both;
 }
 
+#QuestionTitle {
+    color: red;
+}
+
 
 #QuestionForm {
   position: relative;
@@ -174,12 +178,48 @@ padding: 2em; */
 
 /* RESULT CARD */
 
+#Result h2 {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
 .category-bar {
     background-color: red;
     height: 10px;
     position: absolute;
     top: 35px;
     left: 80px;
+}
+
+.final-table h3 {
+    color: red;
+}
+
+td.final-slider {
+    padding: 0 50px;
+    min-width: 400px;
+}
+
+.category-image {
+    height: 200px;
+    padding: 0 !important;
+    max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.category-image div {
+    height: 100%;
+    font-size: 0;
+}
+
+.category-image img {
+    height: 100%;
+    width: auto;
+}
+
+#PensionPrice {
+    color: red;
 }
 
 .pension-calculator {

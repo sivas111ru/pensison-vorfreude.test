@@ -342,24 +342,28 @@ div.easy-hidden {
   color: black;
 }
 
-#PensionSlider1 .ui-slider-handle,
+.slider-icon-leben .ui-slider-handle,
 #Category1 {
-    background: #E10F21 url("../img/icons/icon-leben.png");
+    background-color: #E10F21 !important;
+    background-image: url("../img/icons/icon-leben.png") !important;
 }
 
-#PensionSlider2 .ui-slider-handle,
+.slider-icon-reisen .ui-slider-handle,
 #Category2 {
-    background: #E10F21 url("../img/icons/icon-reisen.png");
+    background-color: #E10F21 !important;
+    background-image: url("../img/icons/icon-reisen.png") !important;
 }
 
-#PensionSlider3 .ui-slider-handle,
+.slider-icon-wohnen .ui-slider-handle,
 #Category3 {
-    background: #E10F21 url("../img/icons/icon-wohnen.png");
+    background-color: #E10F21 !important;
+    background-image: url("../img/icons/icon-wohnen.png") !important;
 }
 
-#PensionSlider4 .ui-slider-handle,
+.slider-icon-herzen .ui-slider-handle,
 #Category4 {
-    background: #E10F21 url("../img/icons/icon-herzen.png");
+    background-color: #E10F21 !important;
+    background-image: url("../img/icons/icon-herzen.png") !important;
 }
 
 #PensionSlider1 .ui-slider-handle,
@@ -369,9 +373,13 @@ div.easy-hidden {
 #Category1,
 #Category2,
 #Category3,
-#Category4 {
-    background-repeat: no-repeat;
-    background-position: 50%;
+#Category4,
+.slider-icon-leben .ui-slider-handle,
+.slider-icon-reisen .ui-slider-handle,
+.slider-icon-wohnen .ui-slider-handle,
+.slider-icon-herzen .ui-slider-handle {
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
 }
 
 #popup {
@@ -427,10 +435,10 @@ div.easy-hidden {
 }
 
 .final-logo {
-  width: 80px;
+  /* width: 80px;
   height: 80px;
   border-radius: 40px;
   background-color: red;
   margin-right: 300px;
-  position: relative;
+  position: relative; */
 }

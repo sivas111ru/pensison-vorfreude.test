@@ -176,6 +176,99 @@ Application.prototype.finishTest = function() {
 
   this.initCalulator();
 
+  var slider = $("#FinalPageSlider1").slider({
+    min: 1,
+    max: 5,
+    animate: false,
+    range: "min",
+    value: 1,
+    change: function( event, ui ) {
+      var imag_pension = 0;
+      var MAX_PENSION = 1000;
+      var QUESTIONS_COUNT = 3;
+      var QUESTION_OPTIONS_COUNT = 5;
+
+      TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
+        $("#PensionPrice").text( Math.round(imag_pension * 100 ) / 100 + " Euro*");
+
+        TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 1});
+      }});
+
+      $(".final-logo").each(function(i, item) {
+        var i = $(item).slider("value");
+        imag_pension += i / QUESTION_OPTIONS_COUNT;
+      });
+
+      imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
+
+      self.imaginary_pension = imag_pension;
+
+      TweenLite.to( $("#FinalSliderImages1"), 1, {x: -279.91 * (ui.value - 1)});
+    }
+  });
+
+  $("#FinalPageSlider2").slider({
+    min: 1,
+    max: 5,
+    animate: false,
+    range: "min",
+    value: 1,
+    change: function( event, ui ) {
+      var imag_pension = 0;
+      var MAX_PENSION = 1000;
+      var QUESTIONS_COUNT = 3;
+      var QUESTION_OPTIONS_COUNT = 5;
+
+      TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
+        $("#PensionPrice").text( Math.round(imag_pension * 100 ) / 100 + " Euro*");
+
+        TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 1});
+      }});
+
+      $(".final-logo").each(function(i, item) {
+        var i = $(item).slider("value");
+        imag_pension += i / QUESTION_OPTIONS_COUNT;
+      });
+
+      imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
+
+      self.imaginary_pension = imag_pension;
+
+      TweenLite.to( $("#FinalSliderImages2"), 1, {x: -279.91 * (ui.value - 1)});
+    }
+  });
+
+  $("#FinalPageSlider3").slider({
+    min: 1,
+    max: 5,
+    animate: false,
+    range: "min",
+    value: 1,
+    change: function( event, ui ) {
+      var imag_pension = 0;
+      var MAX_PENSION = 1000;
+      var QUESTIONS_COUNT = 3;
+      var QUESTION_OPTIONS_COUNT = 5;
+
+      TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
+        $("#PensionPrice").text( Math.round(imag_pension * 100 ) / 100 + " Euro*");
+
+        TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 1});
+      }});
+
+      $(".final-logo").each(function(i, item) {
+        var i = $(item).slider("value");
+        imag_pension += i / QUESTION_OPTIONS_COUNT;
+      });
+
+      imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
+
+      self.imaginary_pension = imag_pension;
+
+      TweenLite.to( $("#FinalSliderImages3"), 1, {x: -279.91 * (ui.value - 1)});
+    }
+  });
+
   this.changeTitle("So viel Vorfreude kann so wenig kosten!");
 
   this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
@@ -185,19 +278,19 @@ Application.prototype.finishTest = function() {
     var QUESTION_OPTIONS_COUNT = 5;
 
     $(".final-logo").each(function(i, item){
-      var w = 3;
-
       if ( i >= 0 && i < 4) {
         var index = $("#QuestionImages_" + (i+1) )[0].selectedIndex + 1;
 
         imag_pension += index / QUESTION_OPTIONS_COUNT;
 
         w = index * 60;
+
+        $(item).slider("value", index);
       }
 
       console.log(w);
 
-      TweenLite.to($("#"+item.id+" > span"), 1, {width: w});
+      // TweenLite.to($("#"+item.id+" > span"), 1, {width: w});
     });
 
     imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
