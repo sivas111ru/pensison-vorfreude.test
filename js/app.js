@@ -34,10 +34,12 @@ Application.prototype.init = function() {
   var self = this;
 
   this.questions = [
-    new QuestionCard(1, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?"),
-    new QuestionCard(2, "Is this a real life?"),
-    new QuestionCard(3, "Is it just fantasy?")
+    new QuestionCard(this, 1, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?"),
+    new QuestionCard(this, 2, "Is this a real life?"),
+    new QuestionCard(this, 3, "Is it just fantasy?")
   ];
+
+  this.answers = [1,1,1];
 
   this.question_height = 0;
   for ( var i in this.questions ) {
@@ -56,26 +58,16 @@ Application.prototype.init = function() {
 
   this.$title = $("#QuestionTitle");
 
+  this.question_age_card = new QuestionAgeCard(this);
+
   this.onResizeListener();
   $(window).on("resize", this.onResizeListener);
-
-  this.age_slider = $("#UserAge").slider({
-    min: 18,
-    max: 67,
-    animate: true,
-    range: "min",
-    value: this.user_age,
-    slide: function(event, ui) {
-      self.user_age = ui.value;
-      $("#UserAge .ui-handle-text").text(ui.value + " Jahre");
-    }
-  });
-  $("#UserAge .ui-slider-handle").append("<span class='ui-handle-text'>" + this.user_age + " Jahre</span>");
-  $("#QuestionAge").hide();
 
   $(".pension-questions").hide();
 
   this.$app.height($("#QuestionIntro").outerHeight(true));
+
+  this.result_card = new ResultCard(this);
 };
 
 Application.prototype.onResizeListener = function(e) {
@@ -83,7 +75,7 @@ Application.prototype.onResizeListener = function(e) {
 };
 
 Application.prototype.gotoAgeButtonQuestionListener = function(e) {
-  this.swapTwoCards($("#QuestionIntro"), $("#QuestionAge"));
+  this.swapTwoCards($("#QuestionIntro"), this.question_age_card.$this);
 
   this.changeTitle("Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?");
 };
@@ -169,131 +161,54 @@ Application.prototype.swapTwoQuestionCards = function(a, b, callback) {
   }});
 };
 
+Application.prototype.calculateImaginaryPension = function() {
+  var imag_pension = 0;
+  var MAX_PENSION = 1000;
+  var QUESTIONS_COUNT = 3;
+  var QUESTION_OPTIONS_COUNT = 5;
+
+  this.answers.map(function(num) {
+    imag_pension += num / QUESTION_OPTIONS_COUNT;
+  });
+
+  imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
+
+  this.imaginary_pension = imag_pension;
+};
+
+Application.prototype.calculateSavings = function() {
+  var p = this.imaginary_pension;
+  var p_a = Application.PENSION_DATA_ARRAY[this.user_age];
+
+  var savings = 0;
+
+  if ( p < 400 ) {
+    savings = p_a[0] + p_a[1] * ( 400 - p ) / 200;
+  }
+  else if ( p < 600 ) {
+    savings = p_a[1] + p_a[2] * ( 600 - p ) / 200;
+  }
+  else if ( p < 800 ) {
+    savings = p_a[2] + p_a[3] * ( 800 - p ) / 200;
+  }
+  else if ( p < 1000 ) {
+    savings = p_a[3] + p_a[4] * ( 1000 - p ) / 200;
+  }
+
+  return savings;
+};
+
 Application.prototype.finishTest = function() {
   var self = this;
 
-  var slider = $("#FinalPageSlider1").slider({
-    min: 1,
-    max: 5,
-    animate: false,
-    range: "min",
-    value: 1,
-    change: function( event, ui ) {
-      var imag_pension = 0;
-      var MAX_PENSION = 1000;
-      var QUESTIONS_COUNT = 3;
-      var QUESTION_OPTIONS_COUNT = 5;
+  this.changeTitle(this.result_card.title);
 
-      TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
-        $("#PensionPrice").text( Math.round(imag_pension * 100 ) / 100 + " Euro*");
-
-        TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 1});
-      }});
-
-      $(".final-logo").each(function(i, item) {
-        var i = $(item).slider("value");
-        imag_pension += i / QUESTION_OPTIONS_COUNT;
-      });
-
-      imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
-
-      self.imaginary_pension = imag_pension;
-
-      TweenLite.to( $("#FinalSliderImages1"), 1, {x: -279.91 * (ui.value - 1)});
-    }
-  });
-
-  $("#FinalPageSlider2").slider({
-    min: 1,
-    max: 5,
-    animate: false,
-    range: "min",
-    value: 1,
-    change: function( event, ui ) {
-      var imag_pension = 0;
-      var MAX_PENSION = 1000;
-      var QUESTIONS_COUNT = 3;
-      var QUESTION_OPTIONS_COUNT = 5;
-
-      TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
-        $("#PensionPrice").text( Math.round(imag_pension * 100 ) / 100 + " Euro*");
-
-        TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 1});
-      }});
-
-      $(".final-logo").each(function(i, item) {
-        var i = $(item).slider("value");
-        imag_pension += i / QUESTION_OPTIONS_COUNT;
-      });
-
-      imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
-
-      self.imaginary_pension = imag_pension;
-
-      TweenLite.to( $("#FinalSliderImages2"), 1, {x: -279.91 * (ui.value - 1)});
-    }
-  });
-
-  $("#FinalPageSlider3").slider({
-    min: 1,
-    max: 5,
-    animate: false,
-    range: "min",
-    value: 1,
-    change: function( event, ui ) {
-      var imag_pension = 0;
-      var MAX_PENSION = 1000;
-      var QUESTIONS_COUNT = 3;
-      var QUESTION_OPTIONS_COUNT = 5;
-
-      TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
-        $("#PensionPrice").text( Math.round(imag_pension * 100 ) / 100 + " Euro*");
-
-        TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 1});
-      }});
-
-      $(".final-logo").each(function(i, item) {
-        var i = $(item).slider("value");
-        imag_pension += i / QUESTION_OPTIONS_COUNT;
-      });
-
-      imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
-
-      self.imaginary_pension = imag_pension;
-
-      TweenLite.to( $("#FinalSliderImages3"), 1, {x: -279.91 * (ui.value - 1)});
-    }
-  });
-
-  this.changeTitle("So viel Vorfreude kann so wenig kosten!");
-
-  this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
-    var imag_pension = 0;
-    var MAX_PENSION = 1000;
-    var QUESTIONS_COUNT = 3;
-    var QUESTION_OPTIONS_COUNT = 5;
-
-    $(".final-logo").each(function(i, item){
-      if ( i >= 0 && i < 4) {
-        var index = $("#QuestionImages_" + (i+1) )[0].selectedIndex + 1;
-
-        imag_pension += index / QUESTION_OPTIONS_COUNT;
-
-        w = index * 60;
-
-        $(item).slider("value", index);
-      }
-
-      console.log(w);
-    });
-
-    imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
-
-    self.imaginary_pension = imag_pension;
+  this.swapTwoCards($(".pension-questions"), this.result_card.$this, function() {
+    self.calculateImaginaryPension();
 
     TweenLite.set($("#PensionPrice"), {"opacity": 0});
 
-    self.initCalulator();
+    self.result_card.initCalulator();
 
     $("#PensionPrice").text( Math.round(self.imaginary_pension * 100 ) / 100 + " Euro*");
     TweenLite.to($("#PensionPrice"), 0.3, {"opacity": 1});
@@ -301,113 +216,41 @@ Application.prototype.finishTest = function() {
 };
 
 Application.prototype.displayPensionCalculator = function() {
-  var $calc = $(".pension-calculator");
-
-  var p = this.imaginary_pension;
-  var p_a = Application.PENSION_DATA_ARRAY[this.user_age];
-
-  var savings = 0;
-
-  if ( p < 400 ) {
-    savings = p_a[0] + p_a[1] * ( 400 - p ) / 200;
-  }
-  else if ( p < 600 ) {
-    savings = p_a[1] + p_a[2] * ( 600 - p ) / 200;
-  }
-  else if ( p < 800 ) {
-    savings = p_a[2] + p_a[3] * ( 800 - p ) / 200;
-  }
-  else if ( p < 1000 ) {
-    savings = p_a[3] + p_a[4] * ( 1000 - p ) / 200;
-  }
-
-  console.log(p, p_a, savings);
-
-  $("#ResultPension").val( Math.round(p * 100) / 100 + " Euro");
-  this.payment_slider.slider("value", savings);
-
-  var height = 0;
-  $calc.children().each(function(i, item) {
-      height += $(item).outerHeight(true);
-  });
-
-  TweenLite.to(this.$app, 1, {height: "+=" + height, onComplete: function() {
-    TweenLite.set($calc, {height: height});
-    TweenLite.from($calc, 1, {opacity: 0});
-  }});
+  this.result_card.displayPensionCalculator();
 };
 
-Application.prototype.initCalulator = function() {
-  var p = this.imaginary_pension;
-  var p_a = Application.PENSION_DATA_ARRAY[this.user_age];
 
-  var savings = 0;
 
-  if ( p < 400 ) {
-    savings = p_a[0] + p_a[1] * ( 400 - p ) / 200;
-  }
-  else if ( p < 600 ) {
-    savings = p_a[1] + p_a[2] * ( 600 - p ) / 200;
-  }
-  else if ( p < 800 ) {
-    savings = p_a[2] + p_a[3] * ( 800 - p ) / 200;
-  }
-  else if ( p < 1000 ) {
-    savings = p_a[3] + p_a[4] * ( 1000 - p ) / 200;
-  }
+/* QEUSTION AGE CARD */
 
-  console.log(p, p_a, savings);
+function QuestionAgeCard( app ) {
+  this.app = app;
 
-  $("#ResultPension").val(Math.round(p * 100) / 100 + " Euro");
-
-  this.payment_slider = $("#ResultPayment").slider({
-    min: 20,
-    max: 1000,
-    animate: true,
-    range: "min",
-    value: savings,
-    slide: this.updateCalculatorResult.bind(this)
-  });
-
-  this.year_slider = $("#ResultWorkYears").slider({
+  this.age_slider = $("#UserAge").slider({
     min: 18,
-    max: 55,
+    max: 67,
     animate: true,
     range: "min",
     value: this.user_age,
-    slide: this.updateCalculatorResult.bind(this)
-  });
-};
-
-Application.prototype.updateCalculatorResult = function() {
-  var PENSIONS = [200, 400, 600, 800, 1000]
-  var payment = this.payment_slider.slider("value");
-  var year = this.year_slider.slider("value");
-
-  var pens_array = Application.PENSION_DATA_ARRAY[year];
-  console.log(pens_array);
-
-  for ( var i=0; i < pens_array.length; i++ ) {
-    if ( payment < pens_array[i] ) {
-      break;
+    slide: function(event, ui) {
+      app.user_age = ui.value;
+      $("#UserAge .ui-handle-text").text(ui.value + " Jahre");
     }
-  }
+  });
+  $("#UserAge .ui-slider-handle").append("<span class='ui-handle-text'>" + this.user_age + " Jahre</span>");
 
-  if ( i >= pens_array.length ) {
-    i--;
-  }
-
-  var norm = (PENSIONS[i] - (i == 0 ? 0 :PENSIONS[i-1])) / (pens_array[i] - (i == 0 ? 0 : pens_array[i-1]));
-  var result = PENSIONS[i] + Math.abs(pens_array[i] - payment) * norm;
-
-  console.log(i, payment, year, result, norm, (pens_array[i] - payment) * norm);
-
-  $("#ResultPension").val( Math.round(result * 100) / 100 + " Euro");
+  this.$this = $("#QuestionAge");
+  this.$this.hide();
 };
 
+QuestionAgeCard.prototype.show = function() {
+  this.$this.show();
+};
 
+/* QUESTION CARD */
 
-function QuestionCard ( question_number, question_title ) {
+function QuestionCard ( app, question_number, question_title ) {
+  this.app = app;
   this.num = question_number;
   this.title = question_title;
 
@@ -463,6 +306,7 @@ QuestionCard.prototype.init = function() {
     },
     change: function( event, ui ) {
       self.select[ 0 ].selectedIndex = ui.value - 1;
+      self.app.answers[ self.num - 1 ] = ui.value;
     }
   });
 
@@ -560,6 +404,123 @@ QuestionCard.prototype.minusClickListener = function() {
       self.showImage(value);
     });
   }
+};
+
+
+/* FINISH CARD */
+
+function ResultCard(app) {
+  this.app = app;
+
+  this.initSliders();
+
+  this.title = "So viel Vorfreude kann so wenig kosten!";
+
+  this.$this = $("#Result");
+}
+
+ResultCard.prototype.initSliders = function() {
+  var self = this;
+
+  this.sliders = [];
+
+  for ( var j=1; j < 4; j++ ) {
+    (function(i){
+      self.sliders.push(
+        $("#FinalPageSlider" + i).slider({
+          min: 1,
+          max: 5,
+          animate: false,
+          range: "min",
+          value: 1,
+          change: function( event, ui ) {
+            self.app.answers[i-1] = ui.value;
+
+            TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
+              $("#PensionPrice").text( Math.round(self.app.imaginary_pension * 100 ) / 100 + " Euro*");
+
+              TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 1});
+            }});
+
+            self.app.calculateImaginaryPension();
+
+            TweenLite.to( $("#FinalSliderImages" + i), 1, {x: -279.91 * (ui.value - 1)});
+          }
+        })
+      );
+    })(j);
+  }
+};
+
+ResultCard.prototype.initCalulator = function() {
+  var p = this.app.imaginary_pension;
+  var savings = this.app.calculateSavings();
+
+  $("#ResultPension").val(Math.round(p * 100) / 100 + " Euro");
+
+  this.payment_slider = $("#ResultPayment").slider({
+    min: 20,
+    max: 1000,
+    animate: true,
+    range: "min",
+    value: savings,
+    slide: this.updateCalculatorResult.bind(this)
+  });
+
+  this.year_slider = $("#ResultWorkYears").slider({
+    min: 18,
+    max: 55,
+    animate: true,
+    range: "min",
+    value: this.app.user_age,
+    slide: this.updateCalculatorResult.bind(this)
+  });
+};
+
+ResultCard.prototype.displayPensionCalculator = function() {
+  var $calc = $(".pension-calculator");
+
+  var p = this.imaginary_pension;
+
+  var savings = this.app.calculateSavings();
+
+  $("#ResultPension").val( Math.round(p * 100) / 100 + " Euro");
+  this.payment_slider.slider("value", savings);
+
+  var height = 0;
+  $calc.children().each(function(i, item) {
+      height += $(item).outerHeight(true);
+  });
+
+  TweenLite.to(this.app.$app, 1, {height: "+=" + height, onComplete: function() {
+    TweenLite.set($calc, {height: height});
+    TweenLite.from($calc, 1, {opacity: 0});
+  }});
+};
+
+ResultCard.prototype.updateCalculatorResult = function() {
+  var PENSIONS = [200, 400, 600, 800, 1000]
+  var payment = this.payment_slider.slider("value");
+  var year = this.year_slider.slider("value");
+
+  var pens_array = Application.PENSION_DATA_ARRAY[year];
+
+  for ( var i=0; i < pens_array.length; i++ ) {
+    if ( payment < pens_array[i] ) {
+      break;
+    }
+  }
+
+  if ( i >= pens_array.length ) {
+    i--;
+  }
+
+  var norm = (PENSIONS[i] - (i == 0 ? 0 :PENSIONS[i-1])) / (pens_array[i] - (i == 0 ? 0 : pens_array[i-1]));
+  var result = PENSIONS[i] + Math.abs(pens_array[i] - payment) * norm;
+
+  console.log(i, payment, year, result, norm, (pens_array[i] - payment) * norm);
+
+  $("#ResultPension").val( Math.round(result * 100) / 100 + " Euro");
 };
 
 $(function() {
