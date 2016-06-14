@@ -22,14 +22,21 @@ $.fn.toPx = function(settings){
 
 function Application () {
   this.$app = $("#QuestionForm");
+
+  this.user_age = 28;
+};
+
+Application.prototype.getPensionFromSavedMoneyPerYear = function(saved_money_per_year) {
+  
 };
 
 Application.prototype.init = function() {
+  var self = this;
+
   this.questions = [
     new QuestionCard(1, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?"),
     new QuestionCard(2, "Is this a real life?"),
-    new QuestionCard(3, "Is it just fantasy?"),
-    new QuestionCard(4, "Stuck in a landslide")
+    new QuestionCard(3, "Is it just fantasy?")
   ];
 
   this.question_height = 0;
@@ -52,6 +59,20 @@ Application.prototype.init = function() {
   this.onResizeListener();
   $(window).on("resize", this.onResizeListener);
 
+  this.age_slider = $("#UserAge").slider({
+    min: 18,
+    max: 67,
+    animate: true,
+    range: "min",
+    value: this.user_age,
+    slide: function(event, ui) {
+      self.user_age = ui.value;
+      $("#UserAge .ui-handle-text").text(ui.value + " Jahre");
+    }
+  });
+  $("#UserAge .ui-slider-handle").append("<span class='ui-handle-text'>" + this.user_age + " Jahre</span>");
+  $("#QuestionAge").hide();
+
   $(".pension-questions").hide();
 
   this.$app.height($("#QuestionIntro").outerHeight(true));
@@ -59,6 +80,12 @@ Application.prototype.init = function() {
 
 Application.prototype.onResizeListener = function(e) {
   this.current_question.resizeImage();
+};
+
+Application.prototype.gotoAgeButtonQuestionListener = function(e) {
+  this.swapTwoCards($("#QuestionIntro"), $("#QuestionAge"));
+
+  this.changeTitle("Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?");
 };
 
 Application.prototype.titleStartClickListener = function (e) {
@@ -76,7 +103,7 @@ Application.prototype.startTest = function() {
 
   TweenLite.to("#TitleStartButton", 1, {opacity: 0});
 
-  this.swapTwoCards($("#QuestionIntro"), $(".pension-questions"));
+  this.swapTwoCards($("#QuestionAge"), $(".pension-questions"));
 
   this.changeTitle(this.current_question.title);
 };
@@ -145,23 +172,40 @@ Application.prototype.swapTwoQuestionCards = function(a, b, callback) {
 Application.prototype.finishTest = function() {
   var self = this;
 
+  TweenLite.set($("#PensionPrice"), {"opacity": 0});
+
   this.initCalulator();
 
   this.changeTitle("So viel Vorfreude kann so wenig kosten!");
 
   this.swapTwoCards($(".pension-questions"), $("#Result"), function() {
-      $(".final-logo").each(function(i, item){
-        if ( i >= 0 && i < 4) {
-          var w = ( $("#QuestionImages_" + (i+1) )[0].selectedIndex + 1 ) * 60;
-        }
-        else {
-          var w = 300 / 100;
-        }
+    var imag_pension = 0;
+    var MAX_PENSION = 1000;
+    var QUESTIONS_COUNT = 3;
+    var QUESTION_OPTIONS_COUNT = 5;
 
-        console.log(w);
+    $(".final-logo").each(function(i, item){
+      var w = 3;
 
-        TweenLite.to($("#"+item.id+" > span"), 1, {width: w});
-      });
+      if ( i >= 0 && i < 4) {
+        var index = $("#QuestionImages_" + (i+1) )[0].selectedIndex + 1;
+
+        imag_pension += index / QUESTION_OPTIONS_COUNT;
+
+        w = index * 60;
+      }
+
+      console.log(w);
+
+      TweenLite.to($("#"+item.id+" > span"), 1, {width: w});
+    });
+
+    imag_pension = imag_pension / QUESTIONS_COUNT * MAX_PENSION;
+
+    self.imaginary_pension = imag_pension;
+    
+    $("#PensionPrice").text( Math.round(imag_pension * 100 ) / 100 + " Euro*");
+    TweenLite.to($("#PensionPrice"), 0.3, {"opacity": 1});
   });
 };
 

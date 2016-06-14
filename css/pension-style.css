@@ -85,7 +85,47 @@ padding: 2em; */
     position: absolute;
 }
 
+/* QUESTION AGE */
+
+#UserAge:before,
+#UserAge:after {
+    position: absolute;
+    top: 15px;
+    color: #666666;
+}
+
+#UserAge:before {
+    content: "18 Jahre";
+    left: 0;
+}
+
+#UserAge:after {
+    content: "67 Jahre";
+    right: 0;
+}
+
+#UserAge .ui-handle-text {
+    left: -16px;
+}
+
+.user-age-table {
+    width: 100%;
+}
+
+.user-age-table .user-age-lable-cell {
+    width: 25%;
+}
+
 /* SCROLLBAR */
+
+.ui-handle-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: -30px;
+    color: red;
+    white-space: nowrap ;
+}
 
 .pension-slider.ui-widget-content {
     background: white;
@@ -158,6 +198,11 @@ padding: 2em; */
     top: -11px;
     border-radius: 15px;
     background: white;
+}
+
+.pension-result-slider .ui-slider-handle:focus {
+    outline: none;
+    cursor: default;
 }
 
 .pension-result-slider.ui-widget-content {
