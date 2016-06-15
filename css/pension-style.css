@@ -1,3 +1,12 @@
+@font-face {
+    font-family: Sparkasse;
+    src: url(../fonts/Sparkasse_Rg.ttf);
+}
+
+body {
+    font-family: Sparkasse;
+}
+
 .clearfix {
     zoom: 1;
 }
@@ -196,9 +205,16 @@ padding: 2em; */
 
 /* RESULT CARD */
 
-#Result h2 {
-    font-size: 14pt;
-    font-weight: bold;
+.pension-price-row {
+    color: red;
+}
+
+.pension-price-row h2 {
+    font-size: 26px;
+}
+
+.pension-price-row h1 {
+    font-size: 40pt;
 }
 
 .category-bar {
@@ -236,17 +252,48 @@ td.final-slider {
     width: auto;
 }
 
-#PensionPrice {
-    color: red;
-}
-
 .pension-calculator {
     height: 0;
     overflow: hidden;
 }
 
+.pension-row {
+    margin-bottom: 60px;
+}
+
 .pension-calculator label {
     color: #666666;
+    display: block;
+    font-size: 14pt;
+}
+
+.pension-calculator input[type=text] {
+    border: 2px solid #777777;
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+    color: red;
+    padding: 5px;
+    font-size: 17px;
+}
+
+.helper-button {
+    border: 1px solid #777777;
+    -webkit-border-radius: 50%;
+            border-radius: 50%;
+    color: #777777;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 10pt;
+    line-height: 20px;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.pension-calculator h2 {
+    margin-top: 3em;
+    font-size: 18pt;
 }
 
 .pension-result-slider {
@@ -277,4 +324,36 @@ td.final-slider {
 
 .pension-result-slider .ui-slider-range-min {
     background: red;
+}
+
+.pension-result-slider .min,
+.pension-result-slider .max {
+    font-size: 14pt;
+    color: #666666;
+    position: absolute;
+    top: 20px;
+}
+
+.pension-result-slider .max {
+    right: 0;
+}
+
+.pension-result-slider .value {
+    color: red;
+    font-size: 15pt;
+    position: absolute;
+    right: 0;
+    top: -50px;
+}
+
+#ResultWorkYears .min:after,
+#ResultWorkYears .max:after,
+#ResultWorkYears .value:after {
+    content: " Jahre";
+}
+
+#ResultPayment .min:after,
+#ResultPayment .max:after,
+#ResultPayment .value:after {
+    content: " Euro";
 }

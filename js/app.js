@@ -183,16 +183,16 @@ Application.prototype.calculateSavings = function() {
   var savings = 0;
 
   if ( p < 400 ) {
-    savings = p_a[0] + p_a[1] * ( 400 - p ) / 200;
+    savings = p_a[0] + p_a[1] * ( p - 200 ) / 200;
   }
   else if ( p < 600 ) {
-    savings = p_a[1] + p_a[2] * ( 600 - p ) / 200;
+    savings = p_a[1] + p_a[2] * ( p - 400 ) / 200;
   }
   else if ( p < 800 ) {
-    savings = p_a[2] + p_a[3] * ( 800 - p ) / 200;
+    savings = p_a[2] + p_a[3] * ( p - 600 ) / 200;
   }
   else if ( p < 1000 ) {
-    savings = p_a[3] + p_a[4] * ( 1000 - p ) / 200;
+    savings = p_a[3] + p_a[4] * ( p - 800 ) / 200;
   }
 
   return savings;
@@ -471,10 +471,14 @@ ResultCard.prototype.initCalulator = function() {
   this.payment_slider = $("#ResultPayment").slider({
     min: 20,
     max: 500,
+    step: 0.01,
     animate: true,
     range: "min",
     value: savings,
-    slide: this.updateCalculatorResult.bind(this)
+    slide: function (e, ui) {
+      $("#ResultPayment .value").text(ui.value);
+      self.updateCalculatorResult();
+    }
   });
 
   this.year_slider = $("#ResultWorkYears").slider({
@@ -482,20 +486,49 @@ ResultCard.prototype.initCalulator = function() {
     max: 55,
     animate: true,
     range: "min",
-    value: this.app.user_age,
-    slide: this.updateCalculatorResult.bind(this)
+    value: self.app.user_age,
+    slide: function(e, ui) {
+      self.app.user_age = ui.value;
+
+      $("#ResultWorkYears .value").text(ui.value);
+
+      var pens_array = Application.PENSION_DATA_ARRAY[ui.value];
+      var min = pens_array[0];
+      var max = pens_array[4];
+
+      self.payment_slider.slider("option", "min", min);
+      $("#ResultPayment .min").text(min);
+
+      self.payment_slider.slider("option", "max", max);
+      $("#ResultPayment .max").text(max);
+
+      self.updateCalculatorResult();
+    }
   });
 };
 
 ResultCard.prototype.displayPensionCalculator = function() {
   var $calc = $(".pension-calculator");
 
-  var p = this.imaginary_pension;
+  var p = this.app.imaginary_pension;
 
   var savings = this.app.calculateSavings();
 
+  var p_a = Application.PENSION_DATA_ARRAY[this.app.user_age];
+
+  var min = p_a[0];
+  var max = p_a[4];
+
   $("#ResultPension").val( Math.round(p * 100) / 100 + " Euro");
+
+  $("#ResultPayment .min").text(min);
+  this.payment_slider.slider("option", "min", min);
+
+  $("#ResultPayment .max").text(max);
+  this.payment_slider.slider("option", "max", max);
+
   this.payment_slider.slider("value", savings);
+  $("#ResultPayment .value").text( Math.round(savings * 100) / 100);
 
   var height = 0;
   $calc.children().each(function(i, item) {
@@ -511,12 +544,9 @@ ResultCard.prototype.displayPensionCalculator = function() {
 ResultCard.prototype.updateCalculatorResult = function() {
   var PENSIONS = [200, 400, 600, 800, 1000];
   var payment = this.payment_slider.slider("value");
-  var year = this.year_slider.slider("value");
+  var year = this.app.user_age;
 
   var pens_array = Application.PENSION_DATA_ARRAY[year];
-
-  this.payment_slider.slider("option", "min", pens_array[0]);
-  this.payment_slider.slider("option", "max", pens_array[4]);
 
   for ( var i=0; i < pens_array.length; i++ ) {
     if ( payment < pens_array[i] ) {
@@ -578,7 +608,7 @@ pens_array[48] = [48.67, 295.09, 441.52, 587.95, 734.37];
 pens_array[49] = [60.46, 318.68, 476.9, 635.11, 793.33];
 pens_array[50] = [73.65, 345.07, 516.48, 687.9, 859.31];
 pens_array[51] = [88.61, 374.97, 561.33, 747.7, 934.05];
-pens_array[52] = [5.56, 408.89, 612.21, 815.53, 1018.85];
+pens_array[52] = [25.56, 408.89, 612.21, 815.53, 1018.85];
 pens_array[53] = [25.01, 447.77, 670.54, 893.31, 1116.07];
 pens_array[54] = [47.52, 492.79, 738.06, 983.35, 1228.63];
 pens_array[55] = [73.78, 545.33, 816.89, 1088.44, 1359.99];
