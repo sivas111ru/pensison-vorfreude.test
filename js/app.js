@@ -208,7 +208,7 @@ Application.prototype.finishTest = function() {
 
     TweenLite.set($("#PensionPrice"), {"opacity": 0});
 
-    self.result_card.initCalulator();
+    self.result_card.init();
 
     $("#PensionPrice").text( Math.round(self.imaginary_pension * 100 ) / 100 + " Euro*");
     TweenLite.to($("#PensionPrice"), 0.3, {"opacity": 1});
@@ -412,29 +412,29 @@ QuestionCard.prototype.minusClickListener = function() {
 function ResultCard(app) {
   this.app = app;
 
-  this.initSliders();
+  this.createSliders();
 
   this.title = "So viel Vorfreude kann so wenig kosten!";
 
   this.$this = $("#Result");
 }
 
-ResultCard.prototype.initSliders = function() {
+ResultCard.prototype.createSliders = function() {
   var self = this;
 
   this.sliders = [];
 
-  for ( var j=1; j < 4; j++ ) {
-    (function(i){
-      self.sliders.push(
+  this.app.answers.map(function(num, index) {
+    var i = index + 1;
+    self.sliders.push(
         $("#FinalPageSlider" + i).slider({
           min: 1,
           max: 5,
           animate: false,
           range: "min",
-          value: 1,
+          value: num,
           change: function( event, ui ) {
-            self.app.answers[i-1] = ui.value;
+            self.app.answers[index] = ui.value;
 
             TweenLite.to($("#PensionPrice"), 0.4, {"opacity": 0, onComplete: function() {
               $("#PensionPrice").text( Math.round(self.app.imaginary_pension * 100 ) / 100 + " Euro*");
@@ -448,8 +448,17 @@ ResultCard.prototype.initSliders = function() {
           }
         })
       );
-    })(j);
-  }
+  });
+};
+
+ResultCard.prototype.init = function() {
+  var self = this;
+
+  this.initCalulator();
+
+  this.sliders.map(function(item, index) {
+    item.slider("value", self.app.answers[index]);
+  });
 };
 
 ResultCard.prototype.initCalulator = function() {
