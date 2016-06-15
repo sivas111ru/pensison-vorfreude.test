@@ -305,7 +305,6 @@ QuestionCard.prototype.init = function() {
       self.showImage(ui.value);
     },
     change: function( event, ui ) {
-      // self.select[ 0 ].selectedIndex = ui.value - 1;
       self.app.answers[ self.num - 1 ] = ui.value;
     }
   });
