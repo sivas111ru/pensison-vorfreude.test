@@ -297,7 +297,7 @@ QuestionCard.prototype.init = function() {
     max: 5,
     animate: false,
     range: "min",
-    value: this.select[ 0 ].selectedIndex + 1,
+    value: 1,
     start: function( event, ui ) {
       self.hideImage(ui.value);
     },
@@ -305,7 +305,7 @@ QuestionCard.prototype.init = function() {
       self.showImage(ui.value);
     },
     change: function( event, ui ) {
-      self.select[ 0 ].selectedIndex = ui.value - 1;
+      // self.select[ 0 ].selectedIndex = ui.value - 1;
       self.app.answers[ self.num - 1 ] = ui.value;
     }
   });
