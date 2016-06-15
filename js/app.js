@@ -183,16 +183,17 @@ Application.prototype.calculateSavings = function() {
   var savings = 0;
 
   if ( p < 400 ) {
-    savings = p_a[0] + p_a[1] * ( p - 200 ) / 200;
+    savings = p_a[0] + ( p_a[1] - p_a[0] ) * ( p - 200 ) / 200;
   }
   else if ( p < 600 ) {
-    savings = p_a[1] + p_a[2] * ( p - 400 ) / 200;
+    savings = p_a[1] + ( p_a[2] - p_a[1] ) * ( p - 400 ) / 200;
   }
   else if ( p < 800 ) {
-    savings = p_a[2] + p_a[3] * ( p - 600 ) / 200;
+    savings = p_a[2] + ( p_a[3] - p_a[2] ) * ( p - 600 ) / 200;
   }
-  else if ( p < 1000 ) {
-    savings = p_a[3] + p_a[4] * ( p - 800 ) / 200;
+  else {
+    savings = p_a[3] + ( p_a[4] - p_a[3] ) * ( p - 800 ) / 200;
+    console.log(savings);
   }
 
   return savings;
@@ -494,6 +495,8 @@ ResultCard.prototype.initCalulator = function() {
       self.updateCalculatorResult();
     }
   });
+
+  $("#ResultWorkYears .value").text(this.app.user_age);
 };
 
 ResultCard.prototype.displayPensionCalculator = function() {
