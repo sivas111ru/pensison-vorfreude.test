@@ -391,7 +391,7 @@ QuestionCard.prototype.minusClickListener = function() {
 
   $s.slider( "value", value );
 
-  this.swapImages(value, value+1);
+  this.swapImages(value+1, value);
 };
 
 
