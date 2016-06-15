@@ -273,7 +273,8 @@ td.final-slider {
 .pension-calculator label {
     color: #666666;
     display: block;
-    font-size: 14pt;
+    font-size: 14px;
+    font-weight: normal;
 }
 
 .pension-calculator input[type=text] {
@@ -337,7 +338,7 @@ td.final-slider {
 
 .pension-result-slider .min,
 .pension-result-slider .max {
-    font-size: 14pt;
+    font-size: 14px;
     color: #666666;
     position: absolute;
     top: 20px;
@@ -349,7 +350,7 @@ td.final-slider {
 
 .pension-result-slider .value {
     color: red;
-    font-size: 15pt;
+    font-size: 15px;
     position: absolute;
     right: 0;
     top: -50px;
@@ -365,4 +366,8 @@ td.final-slider {
 #ResultPayment .max:after,
 #ResultPayment .value:after {
     content: " Euro";
+}
+
+.pension-result-final-msg {
+    font-size: 18px;
 }

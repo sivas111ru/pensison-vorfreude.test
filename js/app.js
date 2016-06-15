@@ -292,6 +292,9 @@ QuestionCard.prototype.init = function() {
   });
 
   this.select = this.$(".minbeads");
+
+  var prev_value = 1;
+
   this.slider = this.$( ".pension-controlls .pension-slider" ).slider({
     min: 1,
     max: 5,
@@ -299,10 +302,10 @@ QuestionCard.prototype.init = function() {
     range: "min",
     value: 1,
     start: function( event, ui ) {
-      self.hideImage(ui.value);
+      prev_value = ui.value;
     },
     stop: function( event, ui ) {
-      self.showImage(ui.value);
+      self.swapImages(prev_value, ui.value);
     },
     change: function( event, ui ) {
       self.app.answers[ self.num - 1 ] = ui.value;
@@ -314,6 +317,11 @@ QuestionCard.prototype.init = function() {
   });
 
   this.resizeImage();
+};
+
+QuestionCard.prototype.swapImages = function(img_from_index, img_to_index) {
+  this.$("#Img_" + this.num + "_" + img_from_index).fadeOut();
+  this.$("#Img_" + this.num + "_" + img_to_index).fadeIn();
 };
 
 QuestionCard.prototype.getHeight = function() {
@@ -370,17 +378,7 @@ QuestionCard.prototype.plusClickListener = function() {
   }
 
   $s.slider( "value", value );
-
-  if ( !this.is_transition ) {
-    this.is_transition = true;
-
-    var self = this;
-
-    this.hideImage(value - 1, function() {
-      self.is_transition = false;
-      self.showImage(value);
-    });
-  }
+  this.swapImages(value-1, value);
 };
 
 QuestionCard.prototype.minusClickListener = function() {
@@ -393,16 +391,7 @@ QuestionCard.prototype.minusClickListener = function() {
 
   $s.slider( "value", value );
 
-  if ( !this.is_transition ) {
-    this.is_transition = true;
-
-    var self = this;
-
-    this.hideImage(value + 1, function() {
-      self.is_transition = false;
-      self.showImage(value);
-    });
-  }
+  this.swapImages(value, value+1);
 };
 
 
