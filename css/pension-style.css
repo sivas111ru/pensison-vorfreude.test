@@ -247,8 +247,8 @@ padding: 2em; */
     margin-bottom: 0;
 }
 
-.pension-goal-description {
-    
+#PensionGoalDescription {
+    font-size: 18pt;
 }
 
 .category-bar {

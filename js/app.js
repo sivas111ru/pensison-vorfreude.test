@@ -524,6 +524,8 @@ ResultCard.prototype.displayPensionCalculator = function() {
       height += $(item).outerHeight(true);
   });
 
+  $("html, body").animate({ scrollTop: $('#PensionGoalDescription').offset().top }, 1000);
+
   TweenLite.to(this.app.$app, 1, {height: "+=" + height, onComplete: function() {
     TweenLite.set($calc, {height: height});
     TweenLite.from($calc, 1, {opacity: 0});
