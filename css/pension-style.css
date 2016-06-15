@@ -10,8 +10,17 @@
     clear: both;
 }
 
+.pension-container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
 #QuestionTitle {
     color: red;
+    font-size: 39pt;
+    margin-bottom: 20pt;
 }
 
 
@@ -23,6 +32,7 @@
 .pension-questions {
   /* position: absolute; */
   top: 0;
+  font-size: 18pt;
 }
 
 .pagination-centered {

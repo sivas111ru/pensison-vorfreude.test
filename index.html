@@ -41,12 +41,16 @@
   <div class="img-container">
     <img src="img/famale.jpg" class="img-logo">
 
-    <div class="text-logo">
-      <h1 id="preload-01">Vorfreude ist einfach.</h1>
-      <h3 id="preload-02">
-        Finden Sie heraus, wie viel Vorfreude aufs Alter Sie sich heute leisten wollen!
-      </h3>
-      <span onclick="(app.titleStartClickListener.bind(app))()" id="TitleStartButton">Loslegen ></span>
+    <div class="pension-container text-logo-container">
+
+      <div class="text-logo">
+        <h1 id="preload-01">Vorfreude ist einfach.</h1>
+        <h3 id="preload-02">
+          Finden Sie heraus, wie viel Vorfreude aufs Alter Sie sich heute leisten wollen!
+        </h3>
+        <span onclick="(app.titleStartClickListener.bind(app))()" id="TitleStartButton">Loslegen <img src="img/icons/ico-next.png" alt="starten"></span>
+      </div>
+
     </div>
 
     <div class="btn-group-vertical menu-option">
@@ -57,6 +61,7 @@
       <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-comment"></span></button>
       <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-envelope"></span></button>
     </div>
+
   </div>
 
   <!-- <div class="breadcrumbs">
@@ -67,20 +72,25 @@
     </ul>
   </div> -->
 
-    <div class="container">
+    <div class="pension-container">
+
+      <div class="bread-crumbs">
+        Breadcrumb > Breadcrumb 1 > Breadcrumb 2
+      </div>
+
       <h1 id="QuestionTitle">Aus Vorsorge wird Vorfreude</h1>
       
       <form id="QuestionForm" action="app/evaluate_test.php" method="POST">
       
         <div id="QuestionIntro" class="clearfix">
           <div class="cbox">
-            <p>Wieso eigentlich AltersvorSORGE? Anstatt sich Sorgen um die Zukunft zu machen, sollten Sie sich auf sie freuen. je eher, desto besser! Mit uns machen Sie aus Vorsorge Vorfreude – das ganze Leben lang.</p>
-          
-            <p>Finden Sie jetzt heraus, wie viel Vorfreude aufs Alter Sie sich heute leisten wollen!</p>
+            <p>Wieso eigentlich AltersvorSORGE? Anstatt sich Sorgen um die Zukunft zu machen, sollten Sie sich auf sie freuen. Je eher, desto besser! Mit uns machen Sie aus Vorsorge Vorfreude – das ganze Leben lang.</p>
+            <br>
+            <p>Finden Sie jetzt heraus, wie viel Vorfreude aufs Alter Sie sich heute leisten wollen.</p>
           </div>
         
           <div style="margin-top: 1em;">
-            <span class="pull-right weiter-btn" onclick="(app.gotoAgeButtonQuestionListener.bind(app))()">Vorfreude starten</span>
+            <span class="pull-right weiter-btn" onclick="(app.gotoAgeButtonQuestionListener.bind(app))()">Vorfreude starten <img src="img/icons/ico-next.png" alt="starten"></span>
           </div>
         </div>
 
@@ -344,21 +354,23 @@
                   <label for="">Mein monatlicher Beitrag:</label>
                   <div id="ResultPayment" class="pension-result-slider"></div>
                 </div>
-            </div>
+              </div>
 
-            <div class="cbox" style="margin-top: 1em">
-              Wer will schon auf etwas verzichten? Heute nicht und später erst recht nicht! Sorgen Sie dafür, dass Sie ein Leben lang Ihre Wünsche und Ziele ausleben können – Ihr Sparkassen-Berater hilft dabei!
-            </div>
+              <div class="cbox" style="margin-top: 1em">
+                Wer will schon auf etwas verzichten? Heute nicht und später erst recht nicht! Sorgen Sie dafür, dass Sie ein Leben lang Ihre Wünsche und Ziele ausleben können – Ihr Sparkassen-Berater hilft dabei!
+              </div>
 
-            <div class="clearfix" style="margin-top: 1em">
+              <div class="clearfix" style="margin-top: 1em">
 
-              <span class="pull-right weiter-btn">
-                Termin vereinbaren
-              </span>
+                <span class="pull-right weiter-btn">
+                  Termin vereinbaren
+                </span>
 
-              <span class="pull-right weiter-btn" style="background-color: gray; margin-right: 1em;">
-                Angebot berechnen
-              </span>
+                <span class="pull-right weiter-btn" style="background-color: gray; margin-right: 1em;">
+                  Angebot berechnen
+                </span>
+              </div>
+
             </div>
 
           </div>
@@ -368,15 +380,14 @@
       </form>
     </div>
 
-
     <div>
      
         <div class="footer-margin "></div>
 
         <div class="footer">
 
-            <div class="container">
-                    <div class="row">
+            <div>
+              <div class="row">
                 <div class="col-md-3">
                     <a class="podvalStyleBig" href="https://www.google.com/"><b>Rund ums Konto</b></a>
 
