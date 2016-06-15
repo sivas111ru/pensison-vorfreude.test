@@ -5,7 +5,7 @@ html, body {
 
 .cbox {
   background-color: white;
-  padding: 2em;
+  padding: 15px;
 }
 
 .pension-questions {
@@ -17,6 +17,7 @@ html, body {
   color: white;
   padding: 10px 5px 10px 30px;
   cursor: pointer;
+  font-size: 18pt;
 }
 
 .easy-hidden,
@@ -123,28 +124,28 @@ div.easy-hidden {
 }
 
 #QuestionNumbers span {
-    background-color: gray;
-    border-radius: 50%;
-    color: white;
-    display: block;
-    line-height: 20px;
-	width: 20px;
-	height: 20px;
-    text-align: center;
-    position: relative;
-    margin-right: 10px;
-    padding: auto 0;
+  background-color: gray;
+  border-radius: 50%;
+  color: white;
+  display: block;
+  line-height: 36px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  position: relative;
+  margin-right: 18px;
+  padding: auto 0;
 }
 
 #QuestionNumbers span:not(:last-child):after {
     content: "";
     display: block;
-    width: 10px;
+    width: 16px;
     height: 3px;
     background-color: gray;
     position: absolute;
-    right: -10px;
-    top: 9px;       
+    right: -17px;
+    top: 18px;
 }
 
 #QuestionNumbers .red,
@@ -370,25 +371,25 @@ div.easy-hidden {
 
 .slider-icon-leben .ui-slider-handle,
 #Category1 {
-    background-color: #E10F21 !important;
+    background-color: red !important;
     background-image: url("../img/icons/icon-leben.png") !important;
 }
 
 .slider-icon-reisen .ui-slider-handle,
 #Category2 {
-    background-color: #E10F21 !important;
+    background-color: red !important;
     background-image: url("../img/icons/icon-reisen.png") !important;
 }
 
 .slider-icon-wohnen .ui-slider-handle,
 #Category3 {
-    background-color: #E10F21 !important;
+    background-color: red !important;
     background-image: url("../img/icons/icon-wohnen.png") !important;
 }
 
 .slider-icon-herzen .ui-slider-handle,
 #Category4 {
-    background-color: #E10F21 !important;
+    background-color: red !important;
     background-image: url("../img/icons/icon-herzen.png") !important;
 }
 
@@ -406,6 +407,7 @@ div.easy-hidden {
 .slider-icon-herzen .ui-slider-handle {
     background-repeat: no-repeat !important;
     background-position: 50% !important;
+    background-size: 50% auto !important;
 }
 
 #popup {
