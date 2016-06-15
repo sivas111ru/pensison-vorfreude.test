@@ -24,10 +24,8 @@ function Application () {
   this.$app = $("#QuestionForm");
 
   this.user_age = 28;
-};
 
-Application.prototype.getPensionFromSavedMoneyPerYear = function(saved_money_per_year) {
-  
+  this.real_pension = 0;
 };
 
 Application.prototype.init = function() {
@@ -68,6 +66,22 @@ Application.prototype.init = function() {
   this.$app.height($("#QuestionIntro").outerHeight(true));
 
   this.result_card = new ResultCard(this);
+
+  $("#GameOverScreen").dialog({
+    autoOpen: false,
+    modal: true,
+    width: 440,
+    height: 266,
+    create: function (event, ui) {
+        $('.ui-dialog-titlebar').css({'background':'none','border':'none'});
+        $("#dialog-model").css({ 'padding': '0' });
+        $(".ui-dialog-titlebar").html('');
+    },
+    show: {
+      effect: "shake",
+      duration: 300
+    }
+  });
 };
 
 Application.prototype.onResizeListener = function(e) {
@@ -218,6 +232,10 @@ Application.prototype.finishTest = function() {
 
 Application.prototype.displayPensionCalculator = function() {
   this.result_card.displayPensionCalculator();
+};
+
+Application.prototype.showGameOverScreen = function() {
+  $("#GameOverScreen").dialog("open");
 };
 
 
@@ -468,6 +486,15 @@ ResultCard.prototype.initCalulator = function() {
     slide: function (e, ui) {
       $("#ResultPayment .value").text(ui.value);
       self.updateCalculatorResult();
+    },
+    stop: function() {
+      $("#GameOverScreen").dialog("open");
+
+      var app = self.app;
+      if ( app.real_pension < app.imag_pension ) {
+        // console.log("THIS IS IT");
+        
+      }
     }
   });
 
@@ -557,6 +584,8 @@ ResultCard.prototype.updateCalculatorResult = function() {
   var result = PENSIONS[i] - (pens_array[i] - payment) * norm;
 
   console.log(i, payment, year, result, norm, (pens_array[i] - payment) * norm);
+
+  self.app.real_pension = result;
 
   $("#ResultPension").val( Math.round(result / 10) * 10 + " Euro");
 };

@@ -11,14 +11,22 @@
   <script src="js/jquery.easing.1.3.js"></script>
   <script src="js/jquery.autocomplete.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenLite.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/plugins/CSSPlugin.min.js"></script>
+  <script src="js/lib/TweenLite.min.js"></script>
+  <script src="js/lib/CSSPlugin.min.js"></script>
 
   <link rel="stylesheet" href="css/pension-style.css">
 
   <title>Pension Vorfeude</title>
 </head>
 <body>
+
+  <div id="GameOverScreen">
+    <h1>Hinweis:</h1>
+    <p>Vorfreude und Rentenziel stimmen nicht mehr überein. Bitte passen Sie Ihre Wünsche oder den monatlichen Beitrag an.</p>
+    <div class="clearfix">
+      <span onclick="window.location.reload()" class="weiter-btn pull-right">Alles klar <img src="img/icons/ico-next.png" alt="starten"></span>
+    </div>
+  </div>
 
   <div class="navbar-collapse collapse menu pension-header-menu">
     <form name="login" class="navbar-form navbar login-form" role="form" action="login.php" method="POST">

@@ -161,10 +161,16 @@ padding: 2em; */
 
 .user-age-table {
     width: 100%;
+    
+    min-height: 120px;
 }
 
 .user-age-table .user-age-lable-cell {
     width: 25%;
+}
+
+.user-age-lable-cell label {
+    font-weight: normal;
 }
 
 /* SCROLLBAR */
@@ -396,4 +402,18 @@ td.final-slider {
 .small-message-box {
     font-size: 18px;
     margin-bottom: 14px;
+}
+
+#GameOverScreen {
+    padding: 0 30px 30px 30px;
+}
+
+#GameOverScreen h1 {
+    font-size: 26px;
+    color: red;
+    margin-bottom: 20px;
+}
+
+#GameOverScreen p {
+    margin-bottom: 20px;
 }
