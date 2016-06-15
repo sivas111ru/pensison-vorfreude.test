@@ -128,23 +128,24 @@ div.easy-hidden {
   border-radius: 50%;
   color: white;
   display: block;
+  font-size: 18px;
   line-height: 36px;
   width: 36px;
   height: 36px;
   text-align: center;
   position: relative;
-  margin-right: 18px;
+  margin-right: 40px;
   padding: auto 0;
 }
 
 #QuestionNumbers span:not(:last-child):after {
     content: "";
     display: block;
-    width: 16px;
+    width: 42px;
     height: 3px;
     background-color: gray;
     position: absolute;
-    right: -17px;
+    left: 35px;
     top: 18px;
 }
 
