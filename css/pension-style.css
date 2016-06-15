@@ -3,6 +3,21 @@
     src: url(../fonts/Sparkasse_Rg.ttf);
 }
 
+@font-face {
+    font-family: SparkasseHead;
+    src: url(../fonts/SparkasseHead_Rg.ttf);
+}
+
+@font-face {
+    font-family: SparkasseMedium;
+    src: url(../fonts/Sparkasse_Md.ttf);
+}
+
+@font-face {
+    font-family: SparkasseLt;
+    src: url(../fonts/Sparkasse_Lt.ttf);
+}
+
 body {
     font-family: Sparkasse;
 }
@@ -38,6 +53,7 @@ body {
     color: red;
     font-size: 39pt;
     margin-bottom: 20pt;
+    font-family: SparkasseLt;
 }
 
 
