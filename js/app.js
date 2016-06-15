@@ -35,8 +35,8 @@ Application.prototype.init = function() {
 
   this.questions = [
     new QuestionCard(1, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?"),
-    new QuestionCard(2, "Is this a real life?"),
-    new QuestionCard(3, "Is it just fantasy?")
+    new QuestionCard(2, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?"),
+    new QuestionCard(3, "Wie viel Vorfreude aufs Alter wollen Sie sich heute leisten?")
   ];
 
   this.question_height = 0;
