@@ -26,6 +26,14 @@ body {
     padding-right: 20%;
 }
 
+.pension-title-logo {
+    background-image: url(../img/logo_desktop.jpg);
+    -webkit-background-size: cover;
+         -o-background-size: cover;
+            background-size: cover;
+    height: 90%;
+}
+
 #QuestionTitle {
     color: red;
     font-size: 39pt;
@@ -215,6 +223,7 @@ padding: 2em; */
 
 .pension-price-row h1 {
     font-size: 40pt;
+    margin-bottom: 0;
 }
 
 .category-bar {

@@ -466,7 +466,7 @@ ResultCard.prototype.initCalulator = function() {
   var p = this.app.imaginary_pension;
   var savings = this.app.calculateSavings();
 
-  $("#ResultPension").val(Math.round(p * 100) / 100 + " Euro");
+  $("#ResultPension").val(Math.round(p / 10) * 10 + " Euro");
 
   this.payment_slider = $("#ResultPayment").slider({
     min: 20,
@@ -519,7 +519,7 @@ ResultCard.prototype.displayPensionCalculator = function() {
   var min = p_a[0];
   var max = p_a[4];
 
-  $("#ResultPension").val( Math.round(p * 100) / 100 + " Euro");
+  $("#ResultPension").val( Math.round(p / 10) * 10 + " Euro");
 
   $("#ResultPayment .min").text(min);
   this.payment_slider.slider("option", "min", min);
@@ -564,7 +564,7 @@ ResultCard.prototype.updateCalculatorResult = function() {
 
   console.log(i, payment, year, result, norm, (pens_array[i] - payment) * norm);
 
-  $("#ResultPension").val( Math.round(result * 100) / 100 + " Euro");
+  $("#ResultPension").val( Math.round(result / 10) * 10 + " Euro");
 };
 
 $(function() {
@@ -574,8 +574,8 @@ $(function() {
 });
 
 var pens_array = [];
-pens_array[18] = [27.07, 51.86, 152.22, 101.42, 126.23];
-pens_array[19] = [28.41, 54.54, 144.16, 106.79, 132.92];
+pens_array[18] = [27.07, 51.86, 76.65, 101.42, 126.23];
+pens_array[19] = [28.41, 54.54, 80.67, 106.79, 132.92];
 pens_array[20] = [29.83, 57.37, 136.59, 112.46, 140.01];
 pens_array[21] = [31.34, 60.39, 129.52, 118.47, 147.53];
 pens_array[22] = [32.93, 63.56, 122.83, 124.82, 155.46];
